@@ -37,10 +37,10 @@ HangarXPLOR.Filter = function (list, filter) {
       list = $.grep(list, function (item) { return !item.filters.is_package && item.filters.has_ship });
       break;
     case "IsWarbond":
-      list = $.grep(list, function (item) { return item.filters.is_warbond && (item.filters.has_ship || item.filters.is_upgrade) });
+      list = $.grep(list, function (item) { return item.filters.is_warbond && (item.filters.has_ship || item.filters.is_upgrade || item.filters.is_component) });
       break;
     case "!IsWarbond":
-      list = $.grep(list, function (item) { return !item.filters.is_warbond && (item.filters.has_ship || item.filters.is_upgrade) });
+      list = $.grep(list, function (item) { return !item.filters.is_warbond && (item.filters.has_ship || item.filters.is_upgrade || item.filter.is_component) });
       break;
     case "IsCombo":
       list = $.grep(list, function (item) { return item.filters.is_combo });

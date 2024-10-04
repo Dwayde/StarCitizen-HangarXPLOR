@@ -48,7 +48,7 @@ HangarXPLOR.ParseShip = function()
     }
     
     this.displayName = this.ship_name;
-    if (this.filters.has_nickname && !HangarXPLOR._setting.NoNickname) this.displayName = this.nickname;
+    if (this.filters.has_nickname && !HangarXPLOR._setting.NoNickname) this.displayName += " [" + this.nickname + "]";
     if (this.filters.is_lti) this.displayName += ' - LTI';
   }
   else if (this.filters.is_combo)

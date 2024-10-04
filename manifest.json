@@ -84,5 +84,12 @@
               "debug/*.html"
           ]
       }
-  ]
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+        "id": "HangarXPLOR@DwaydeMod.com",
+      "strict_min_version": "109.0"
+    }
+  }
+
 }

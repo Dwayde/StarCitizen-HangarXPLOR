@@ -69,8 +69,8 @@ HangarXPLOR.DrawUI = function()
   $controls2.append(HangarXPLOR.Toggle('Upgraded', 'IsUpgraded', '!IsUpgraded', 'js-custom-filter', toggleHandler, HangarXPLOR._feature.Upgraded));
   $controls2.append(HangarXPLOR.Toggle('Valuable', 'HasValue',   '!HasValue',   'js-custom-filter', toggleHandler, HangarXPLOR._feature.Valuable));
   $controls2.append(HangarXPLOR.Toggle('Reward',   'IsReward',   '!IsReward',   'js-custom-filter', toggleHandler, HangarXPLOR._feature.Reward));
-  $controls2.append(HangarXPLOR.Toggle('Selected', 'IsSelected', '!IsSelected', 'js-custom-filter', toggleHandler));
-  $controls2.append(HangarXPLOR.Toggle('Free CCUs','IsFreeCCU',  '!IsFreeCCU',  'js-custom-filter', toggleHandler, '!IsFreeCCU'));
+  $controls2.append(HangarXPLOR.Toggle('Selected', 'IsSelected', '!IsSelected', 'js-custom-filter', toggleHandler, ''));
+  $controls2.append(HangarXPLOR.Toggle('Free CCUs','IsFreeCCU',  '!IsFreeCCU',  'js-custom-filter', toggleHandler, '')); //'!IsFreeCCU'
 
   $controls3.append(HangarXPLOR.SearchBox());
 

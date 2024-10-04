@@ -65,6 +65,11 @@ HangarXPLOR.ParsePledge = function()
     this.filters.is_giftable     = $('.label:contains(Gift)', this).length > 0 && this.melt_value <= 1000;
     this.filters.is_package      = this.filters.has_squadron || this.filters.has_starcitizen;
     this.filters.has_value       = this.melt_value > 0;
+    if(this.filters.has_component || this.filters.has_equipment) {
+      this.filters.is_component = 1; 
+    } else {
+      this.filters.is_component = 0; 
+    }
 
     // TODO: Support for js-pledge-configuration-value
     
@@ -90,6 +95,9 @@ HangarXPLOR.ParsePledge = function()
     
     // TODO: Support for HangarXPLOR._setting.NoPledgeID
     this.displayName = this.pledge_type + ' - ' + this.displayName + ' (' + this.pledge_id + ')';
+
+    console.log(pledgeName);
+    console.log(this.displayName);
 
     if (this.filters.is_giftable) {
       //Add giftable to name
