@@ -18,7 +18,7 @@ HangarXPLOR.ProcessPage = function($page, pageNo)
     HangarXPLOR.SaveCache();
     HangarXPLOR.DrawUI();
   } else {
-    if(pageNo % 100 === 0) {
+    if(pageNo % 50 === 0) {
       setTimeout(function() {
         HangarXPLOR.LoadPage(pageNo + 1);
       }, delay1sec);  
