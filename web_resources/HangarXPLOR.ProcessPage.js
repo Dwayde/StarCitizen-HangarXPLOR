@@ -1,4 +1,5 @@
 
+var delayhalfsec = 500; //0.5 second
 var delay1sec = 1000; //1 second
 var delay10sec = 10000; //10 second
 
@@ -18,12 +19,15 @@ HangarXPLOR.ProcessPage = function($page, pageNo)
     HangarXPLOR.SaveCache();
     HangarXPLOR.DrawUI();
   } else {
-    if(pageNo % 10 === 0) {
+    /*if(pageNo % 10 === 0) {
       setTimeout(function() {
         HangarXPLOR.LoadPage(pageNo + 1);
       }, delay1sec);  
     } else {
       HangarXPLOR.LoadPage(pageNo + 1);
-    }
+    }*/
+    setTimeout(function() {
+      HangarXPLOR.LoadPage(pageNo + 1);
+    }, delayhalfsec); 
   }
 }

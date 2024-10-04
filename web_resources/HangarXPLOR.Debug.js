@@ -1,6 +1,7 @@
 
 var HangarXPLOR = HangarXPLOR || {};
 
+var delayhalfsec = 500; //0.5 second
 var delay1sec = 1000; //1 second
 var delay10sec = 10000; //10 second
 
@@ -45,7 +46,7 @@ if ($.cookie('debug') == "true") {
             console.log("Page " + pageNo + 1 + " loading...");
             HangarXPLOR.LoadPage(pageNo + 1);
             console.log("Page " + pageNo + 1 + " loaded!");
-          }, delay1sec);
+          }, delayhalfsec);
         //}
     } else {
       HangarXPLOR.DrawUI();
