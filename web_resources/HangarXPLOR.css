@@ -1,0 +1,65 @@
+.js-inventory h3 { margin-top: -5px !important }
+.js-inventory .title-col span,
+.js-inventory .date-col,
+.js-inventory .items-col { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; cursor: default; }
+.js-custom-controls .first { border-bottom: 3px double #162a3f }
+.js-custom-controls .split { border-top: 1px solid #162a3f; }
+.js-custom-controls .mr5 { margin-right: 5px; }
+.js-inventory .js-selected { background: rgba(70,105,145,0.25) !important; border: 1px solid #00ffff !important; }
+.js-custom-controls { margin-bottom: 10px; }
+.js-custom-controls .controls { height: auto !important; margin-bottom: 5px !important; }
+.js-custom-controls .tag-wrapper .tag { margin-right: 0px !important; }
+.js-custom-controls .tag-wrapper .tag .left .effect { background: #0b2031; box-shadow: 0 0 20px #0b2031; }
+.js-custom-controls .tag-wrapper .off .left .effect { background: #C00; box-shadow: 0 0 20px #C00; opacity: 1 !important; transition: all 125ms linear }
+.js-custom-controls .tag-wrapper .on  .left .effect { background: #00e7ff; box-shadow: 0 0 20px #0ff; }
+.js-custom-controls .pager { margin-bottom: 0px !important; margin-right: 15px; }
+.js-custom-controls .mrn15 { margin-right: -15px; }
+.js-custom-controls .mrn5 { margin-right: -5px; }
+.js-custom-controls .content .row { margin-left: 0xp; }
+
+.js-bulk-ui { bottom: 0px; left: 0px; z-index: 102; position: fixed; background: rgba(12,19,25,0.9); }
+.js-bulk-ui .inner { padding: 15px 20px 15px 20px; background: url('https://robertsspaceindustries.com/rsi/static/images/common/fading-bars-top.png') repeat-x top left, url('https://robertsspaceindustries.com/rsi/static/images/common/fading-bars-bottom.png') repeat-x bottom left, rgba(0,0,0,0.4); }
+.js-bulk-ui .value { text-align: right; }
+.js-bulk-ui .value .amount { color: #25e4ff; font-size: 23px; text-transform: none; font-family: 'Electrolize'; display: inline-block; text-align: right; }
+.js-bulk-ui .value .label,
+.js-bulk-ui .value .label-short { color: #6c84a2; font-size: 10px; text-transform: uppercase; font-family: 'Electrolize'; display: inline-block; text-align: left; padding-left: 4px; width: 67px; }
+.js-bulk-ui .value .label-short { width: 40px; }
+.js-bulk-ui .actions a { margin-left: 20px; margin-top: 5px; }
+.js-bulk-ui .actions a:first-child { margin-left: 0px !important; }
+.js-bulk-ui .status { display: none; }
+.js-bulk-ui .loading .actions,
+.js-bulk-ui .loading .value { display: none; }
+.js-bulk-ui .loading .status { display: block; }
+
+.js-custom-controls .controls.js-custom-search-wrapper { position: relative; margin: -10px 0px 0px 10px; padding: 0 0 5px; height: 35px !important; }
+.js-custom-controls .js-custom-search,
+.js-custom-controls .js-custom-search-complete { border: 1px solid rgba(22, 42, 63, 0.8); font-size: 12px; color: #355e78; width: 100%; padding: 10px 15px; display: block; -moz-box-sizing: border-box; box-sizing: border-box; -webkit-transition: all 0.2s !important; -moz-transition: all 0.2s !important; -o-transition: all 0.2s !important; -ms-transition: all 0.2s !important; transition: all 0.2s !important; position: absolute; top: 0; left: 0; z-index: 11; background: transparent; }
+.js-custom-controls .js-custom-search { color: #387893; }
+.js-custom-controls .js-custom-search:focus { border: 1px solid #00B7CA; color:#42C6E7; box-shadow: inset 0 0 20px rgba(0,112,200,0.3); }
+.js-custom-controls .js-custom-search-complete { position: absolute; top: 0; left: 0; background: transparent; z-index: 10; }
+
+.count .cash,
+.cash .count { display: none; }
+
+.count .melt-col { display: none; }
+.cash .count-col { display: none; }
+
+@media only screen and (max-width: 1145px) {
+.js-bulk-ui .inner { padding: 15px 15px 15px 10px }
+.js-bulk-ui .value .amount { font-size: 21px; }
+.js-bulk-ui .value .label { font-size: 8px; width: 55px; }
+}
+
+@media only screen and (max-width: 1024px) {
+.js-bulk-ui .inner { padding: 15px 10px }
+}
+
+.giftable {
+    background: url(https://cdn.robertsspaceindustries.com/static/images/common/shadow_btn_gift.png);
+    width: 19px !important;
+    height: 22px !important;
+    display: inline-block;
+    position: absolute;
+    top: 22px;
+    right: 5%;
+}

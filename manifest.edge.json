@@ -1,0 +1,7 @@
+{
+  "manifest_version": 2,
+  "-ms-preload": {
+    "backgroundScript": "vendor/edge/backgroundScriptsAPIBridge.js",
+    "contentScript": "vendor/edge/contentScriptsAPIBridge.js"
+  }
+}
