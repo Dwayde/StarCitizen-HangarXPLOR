@@ -1,4 +1,7 @@
 
+var delay1sec = 1000; //1 second
+var delay10sec = 10000; //10 second
+
 var HangarXPLOR = HangarXPLOR || {};
 
 // Pre-process all the items in a document, then load the next page, or render the UI

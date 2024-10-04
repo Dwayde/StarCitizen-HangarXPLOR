@@ -1,4 +1,7 @@
 
+var delay1sec = 1000; //1 second
+var delay10sec = 10000; //10 second
+
 var HangarXPLOR = HangarXPLOR || {};
 
 // Load a page of pledges from RSI
