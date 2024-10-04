@@ -18,16 +18,12 @@ HangarXPLOR.ProcessPage = function($page, pageNo)
     HangarXPLOR.SaveCache();
     HangarXPLOR.DrawUI();
   } else {
-      /*if(pageNo % 10 === 0) {
-        setTimeout(function() {
-          HangarXPLOR.LoadPage(pageNo + 1);
-        }, delay1sec);  
-      } else { */
-      setTimeout(function() { // Delay to fix error with extra large hangars
-        console.log("Page " + pageNo + 1 + " loading...");
+    if(pageNo % 100 === 0) {
+      setTimeout(function() {
         HangarXPLOR.LoadPage(pageNo + 1);
-        console.log("Page " + pageNo + 1 + " loaded!");
-      }, delay1sec);
-    //}
+      }, delay1sec);  
+    } else {
+      HangarXPLOR.LoadPage(pageNo + 1);
+    }
   }
 }
