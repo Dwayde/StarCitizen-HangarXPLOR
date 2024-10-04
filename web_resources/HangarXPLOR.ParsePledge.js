@@ -96,9 +96,6 @@ HangarXPLOR.ParsePledge = function()
     // TODO: Support for HangarXPLOR._setting.NoPledgeID
     this.displayName = this.pledge_type + ' - ' + this.displayName + ' (' + this.pledge_id + ')';
 
-    console.log(pledgeName);
-    console.log(this.displayName);
-
     if (this.filters.is_giftable) {
       //Add giftable to name
       //this.displayName += " [GIFTABLE]";
