@@ -1,4 +1,4 @@
-# HangarXPLOR [![Build status](https://ci.appveyor.com/api/projects/status/7j87vur0plpw74vx/branch/release?svg=true)](https://ci.appveyor.com/project/dolkensp/hangarxplor/branch/release)
+# Star Citizen HangarXPLOR Modified
 
 This project aims to improved the default Hangar page at https://robertsspaceindustries.com/account/pledges.
 
@@ -15,14 +15,12 @@ Current features include:
 * Export your ships in [Hangar Transfer Format](https://docs.starcitizen.fans/) for use with other apps
 * Export your ships in CSV format
 
-## Browser Support 
+# Browser Support 
 
-* [Google Chrome Extension](https://chrome.google.com/webstore/detail/hangarxplor/bhkgemjdepodofcnmekdobmmbifemhkc/)
-* [Firefox Add-On](https://addons.mozilla.org/en-US/firefox/addon/star-citizen-hangar-xplorer/)
-* [Opera Add-On](https://addons.opera.com/en-gb/extensions/details/star-citizen-hangar-xplorer/)
-* Edge - On Hold
-* Safari - Not Scheduled
+* [Google Chrome Extension]
+* [Firefox Add-On]
 
-# Screenshots
 
-![New and improved UI](https://i.imgur.com/RNndHdv.png "New and improved UI")
+# Modified
+
+This is modified version by /u/Dwayde_Wade. If you have any problems/issues please feel free to contact me. Also you can ask for new features.
