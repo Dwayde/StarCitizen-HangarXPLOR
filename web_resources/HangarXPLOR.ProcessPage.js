@@ -1,7 +1,6 @@
 
-var delayhalfsec = 500; //0.5 second
-var delay1sec = 1000; //1 second
-var delay10sec = 10000; //10 second
+var delaytime = 1000; //1 second
+
 
 var HangarXPLOR = HangarXPLOR || {};
 
@@ -28,6 +27,6 @@ HangarXPLOR.ProcessPage = function($page, pageNo)
     }*/
     setTimeout(function() {
       HangarXPLOR.LoadPage(pageNo + 1);
-    }, delayhalfsec); 
+    }, delaytime); 
   }
 }
