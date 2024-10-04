@@ -1,3 +1,5 @@
+var delaytime = 60001; //60 second
+
 
 var HangarXPLOR = HangarXPLOR || {};
 
@@ -22,7 +24,16 @@ HangarXPLOR.LoadPage = function(pageNo)
       HangarXPLOR.ProcessPage(this, pageNo) 
     } else {
       HangarXPLOR.Log('Error loading page ' + pageNo + ' of your hangar - please contact plugins@ddrit.com for further support') 
-      console.log('Error loading page ' + pageNo + ' of your hangar - please contact /u/Dwayde_Wade for further support');
+      console.log('Error loading page ' + pageNo + ' of your hangar, probably anti-spam!');
+      if (confirm('Error loading page ' + pageNo + ' of your hangar, probably anti-spam! Try again in ' + ((delaytime - 1)/1000) + ' seconds?') == true) {
+        console.log('Don\t worry we will try again in ' + ((delaytime - 1)/1000) + ' seconds!');
+        setTimeout(function() {
+          HangarXPLOR.LoadPage(pageNo);
+        }, delaytime);
+      } else {
+        console.log('Finished! Hangar not fully loaded! [ERROR]');
+      }
+
     }
   });
 }

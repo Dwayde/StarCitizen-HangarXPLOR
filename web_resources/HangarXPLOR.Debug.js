@@ -1,9 +1,7 @@
 
 var HangarXPLOR = HangarXPLOR || {};
 
-var delayhalfsec = 500; //0.5 second
-var delay1sec = 1000; //1 second
-var delay10sec = 10000; //10 second
+var delaytime = 1000; //1 second
 
 if ($.cookie('logsEnabled') == "true") {
   HangarXPLOR.logsEnabled = true;
@@ -37,16 +35,16 @@ if ($.cookie('debug') == "true") {
       var $items = $('li', $lists[1]);
         
       $items.each(HangarXPLOR.ParsePledge);
-        /*if(pageNo % 10 === 0) {
+        /*if(pageNo % 10 === 0) {s
           setTimeout(function() {
             HangarXPLOR.LoadPage(pageNo + 1);
           }, delay1sec);  
         } else { */
           setTimeout(function() { // Delay to fix error with extra large hangars
-            console.log("Page " + pageNo + 1 + " loading...");
+            console.log("Page " + pageNo + " loading...");
             HangarXPLOR.LoadPage(pageNo + 1);
-            console.log("Page " + pageNo + 1 + " loaded!");
-          }, delayhalfsec);
+            console.log("Page " + pageNo + " loaded!");
+          }, delaytime);
         //}
     } else {
       HangarXPLOR.DrawUI();

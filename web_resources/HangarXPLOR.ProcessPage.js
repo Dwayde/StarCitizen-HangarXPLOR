@@ -1,6 +1,4 @@
 
-var delaytime = 1000; //1 second
-
 
 var HangarXPLOR = HangarXPLOR || {};
 
@@ -12,21 +10,14 @@ HangarXPLOR.ProcessPage = function($page, pageNo)
   var $items = $('.list-items > li', $page);
       
   if (!isEmpty) $items.each(HangarXPLOR.ParsePledge);
-      
-  if (isEmpty || $items.length < 10)
-  {
+
+  if (isEmpty || $items.length < 10) {
     HangarXPLOR.SaveCache();
     HangarXPLOR.DrawUI();
   } else {
-    /*if(pageNo % 10 === 0) {
-      setTimeout(function() {
-        HangarXPLOR.LoadPage(pageNo + 1);
-      }, delay1sec);  
-    } else {
+      console.log("Page " + (pageNo) + " loading...");
       HangarXPLOR.LoadPage(pageNo + 1);
-    }*/
-    setTimeout(function() {
-      HangarXPLOR.LoadPage(pageNo + 1);
-    }, delaytime); 
+      console.log("Page " + (pageNo) + " loaded!");
   }
+
 }
