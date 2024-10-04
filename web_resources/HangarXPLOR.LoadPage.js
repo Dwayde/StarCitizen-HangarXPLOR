@@ -17,5 +17,12 @@ HangarXPLOR.LoadPage = function(pageNo)
   
   var $page = $('<div>');
   
-  $page.load(url + ' .page-wrapper', function(response, status) { if (status == "success") { HangarXPLOR.ProcessPage(this, pageNo) } else { HangarXPLOR.Log('Error loading page ' + pageNo + ' of your hangar - please contact plugins@ddrit.com for further support') } });
+  $page.load(url + ' .page-wrapper', function(response, status) {
+    if (status == "success") {
+      HangarXPLOR.ProcessPage(this, pageNo) 
+    } else {
+      HangarXPLOR.Log('Error loading page ' + pageNo + ' of your hangar - please contact plugins@ddrit.com for further support') 
+      console.log('Error loading page ' + pageNo + ' of your hangar - please contact /u/Dwayde_Wade for further support');
+    }
+  });
 }
