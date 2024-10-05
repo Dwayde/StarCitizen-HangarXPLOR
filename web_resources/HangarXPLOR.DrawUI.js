@@ -74,10 +74,18 @@ HangarXPLOR.DrawUI = function()
 
   $controls3.append(HangarXPLOR.SearchBox());
 
-  var toprow = $('.top');
-  toprow.append($('<li>', { class: 'clearCache' }).append($('<button>', { class: 'clearCacheBut shadow-button trans-02s trans-color', id: 'clearCache', value: 'clearCache'}).text("Clear cache")));
-
   // Clear cache button
+  
+  var toprow = $('.top');
+  toprow.append(
+    $('<span>', { class: 'shadow-button trans-02s trans-color clearcaches js-clear-cache'}).append(
+      $('<span>', { class: 'icon trans-02s' }),
+      $('<span>', { class: 'label js-label trans-02s', id: 'clearCache', value: 'clearCache'}).text("Clear cache"),
+      $('<span>', { class: 'left-section'}),
+      $('<span>', { class: 'right-section'})
+    )
+  );
+
   document.getElementById('clearCache').addEventListener("click", function() {
     if(confirm('Do you want to reload hangar?') == true) {
       chrome.storage.sync.get(null, function(settings) {
