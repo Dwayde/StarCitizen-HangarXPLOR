@@ -15,6 +15,8 @@ Current features include:
 * Export your ships in [Hangar Transfer Format](https://docs.starcitizen.fans/) for use with other apps
 * Export your ships in CSV format
 
+Bulk melt and gift Add-On: [XPLOR BULK](https://github.com/Dwayde/StarCitizen-HangarXPLOR-Bulk).
+
 # Browser Support 
 
 * [Google Chrome Extension]
