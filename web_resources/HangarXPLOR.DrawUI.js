@@ -75,12 +75,12 @@ HangarXPLOR.DrawUI = function()
   $controls3.append(HangarXPLOR.SearchBox());
 
   // Clear cache button
-  
+
   var toprow = $('.top');
   toprow.append(
     $('<span>', { class: 'shadow-button trans-02s trans-color clearcaches js-clear-cache'}).append(
       $('<span>', { class: 'icon trans-02s' }),
-      $('<span>', { class: 'label js-label trans-02s', id: 'clearCache', value: 'clearCache'}).text("Clear cache"),
+      $('<span>', { class: 'label js-label trans-02s', id: 'clearCache', value: 'clearCache'}).text("Clear hangar cache"),
       $('<span>', { class: 'left-section'}),
       $('<span>', { class: 'right-section'})
     )
