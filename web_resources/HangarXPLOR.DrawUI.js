@@ -74,6 +74,26 @@ HangarXPLOR.DrawUI = function()
 
   $controls3.append(HangarXPLOR.SearchBox());
 
+  var toprow = $('.top');
+  toprow.append($('<li>', { class: 'clearCache' }).append($('<button>', { class: 'clearCacheBut shadow-button trans-02s trans-color', id: 'clearCache', value: 'clearCache'}).text("Clear cache")));
+
+  // Clear cache button
+  document.getElementById('clearCache').addEventListener("click", function() {
+    if(confirm('Do you want to reload hangar?') == true) {
+      chrome.storage.sync.get(null, function(settings) {
+          settings._cacheSalt  = btoa(Math.random());
+
+          chrome.storage.sync.set(settings, () => {
+            //chrome.tabs.reload(details.tabId);
+            window.close();
+          });
+      });
+      window.location.reload();
+      }
+  });
+
+
+
   HangarXPLOR.Render();
   HangarXPLOR.BindBulkUI();
   HangarXPLOR.RefreshBulkUI();
