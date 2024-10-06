@@ -26,3 +26,11 @@ Bulk melt and gift Add-On: [XPLOR BULK](https://github.com/Dwayde/StarCitizen-Ha
 # Modified
 
 This is modified version by /u/Dwayde_Wade. If you have any problems/issues please feel free to contact me. Also you can ask for new features.
+
+# Changes:
+
+* Fix for extra large hangars
+* Working with new website
+* UI and design fixes (selected items, filters, melt value, giftable pledfes and more...)
+* New filter for selected items
+* Reload hangar button (clear cache possibility)
