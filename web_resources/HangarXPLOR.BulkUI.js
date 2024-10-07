@@ -56,8 +56,8 @@ HangarXPLOR.BulkUI = function()
     $('<div>', { class: 'corner corner-top-right' }),
     $('<div>', { class: 'corner corner-bottom-right' }));
   
-  HangarXPLOR.$bulkUI.$downloads.append(HangarXPLOR.Button('Download CSV', 'download js-download-csv', HangarXPLOR._callbacks.DownloadCSV));
-  HangarXPLOR.$bulkUI.$downloads.append(HangarXPLOR.Button('Download JSON', 'download js-download-json', HangarXPLOR._callbacks.DownloadJSON));
+  HangarXPLOR.$bulkUI.$downloads.append(HangarXPLOR.Button('Download ships CSV', 'download js-download-csv', HangarXPLOR._callbacks.DownloadCSV));
+  HangarXPLOR.$bulkUI.$downloads.append(HangarXPLOR.Button('Download ships JSON', 'download js-download-json', HangarXPLOR._callbacks.DownloadJSON));
 
   bulkHeight = $('.js-bulk-ui').height();
   positionUI();

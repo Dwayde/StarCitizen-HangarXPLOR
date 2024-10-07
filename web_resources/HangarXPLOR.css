@@ -84,3 +84,7 @@
 .exportbuttoncsv {
     margin-top: 10px;
 }
+
+.value {
+    text-align: center;
+}
