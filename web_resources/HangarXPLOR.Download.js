@@ -92,7 +92,17 @@ HangarXPLOR._exportByName = HangarXPLOR._exportByName || {};
 
       if(pledge.name.toLowerCase().includes('gear')) {
         pledge.gear = true;
+      } else{
+        pledge.gear = false;
       }
+
+      if(pledge.name.toLowerCase().includes('upgrade')) {
+        pledge.upgrade = true;
+      } else {
+        pledge.upgrade = false;
+      }
+
+      pledge.ship = false;
 
       $('.kind:contains(Ship)', this).parent().map(function() {
         var $ship = this;
@@ -105,7 +115,6 @@ HangarXPLOR._exportByName = HangarXPLOR._exportByName || {};
         pledge.ship_name   = ship_name;
         pledge.orig_name   = ship_orig_name;
         pledge.warbond     = pledge.warbond;
-        pledge.entity_type = 'ship';
 
         var searchArr = ship_name.toLowerCase().split(" ");
         pledge.ccud = true;
