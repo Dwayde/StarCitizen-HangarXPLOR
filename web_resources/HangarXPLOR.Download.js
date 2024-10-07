@@ -106,14 +106,12 @@ HangarXPLOR._exportByName = HangarXPLOR._exportByName || {};
 
       $('.kind:contains(Ship)', this).parent().map(function() {
         var $ship = this;
-        var ship_orig_name = $('.title', $ship).text();
         var ship_name = $('.title', $ship).text().trim();
 
         pledge.ship = true;
         
         pledge.manufacturer_code = $('.liner span', $ship).text().trim();
         pledge.ship_name   = ship_name;
-        pledge.orig_name   = ship_orig_name;
         pledge.warbond     = pledge.warbond;
 
         var searchArr = ship_name.toLowerCase().split(" ");
