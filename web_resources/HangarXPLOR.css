@@ -78,6 +78,9 @@
     cursor: pointer;
 }
 
-.exportbutton {
+.exportbuttonjson {
     margin-top: 25px;
+}
+.exportbuttoncsv {
+    margin-top: 10px;
 }

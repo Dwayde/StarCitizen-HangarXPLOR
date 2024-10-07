@@ -103,6 +103,7 @@ HangarXPLOR._exportByName = HangarXPLOR._exportByName || {};
       }
 
       pledge.ship = false;
+      pledge.ship_name = '';
 
       $('.kind:contains(Ship)', this).parent().map(function() {
         var $ship = this;
@@ -136,7 +137,7 @@ HangarXPLOR._exportByName = HangarXPLOR._exportByName || {};
     }).get();
   }
 
-  HangarXPLOR._callbacks.ExportHangar = function(e) {
+  HangarXPLOR._callbacks.ExportHangarJSON = function(e) {
     e.preventDefault();
 
     var d = new Date,
@@ -155,10 +156,30 @@ HangarXPLOR._exportByName = HangarXPLOR._exportByName || {};
     $download.attr('type', 'text/json');
     $download[0].click();
   }
-  
 
+  HangarXPLOR._callbacks.ExportHangarCSV = function(e) {
+    e.preventDefault();
 
-  
+    var d = new Date,
+    formatedCurDate = [(d.getFullYear()),
+               d.getMonth() + 1,
+               d.getDate()].join('-') + '_' +
+              [d.getHours(),
+               d.getMinutes(),
+               d.getSeconds()].join('-');
+    
+    var $target = $(HangarXPLOR._selected.length > 0 ? HangarXPLOR._selected : HangarXPLOR._inventory);
+    
+    // TODO: CSV support will need to be careful of user-entered data...
+    var buffer = "Name, Ship, LTI, ID, Cost, Date\n";
+    buffer = buffer + HangarXPLOR.GetPledgeList($target).map(function(pledge) { return [ '"' + pledge.name + '"', '"' + pledge.ship_name + '"', pledge.lti, pledge.id, pledge.price, pledge.date + '"' ].join(',')}).join('\n')
+
+    $download.attr('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(buffer));
+    $download.attr('download', 'pledgelist_' + formatedCurDate + '.csv');
+    $download.attr('type', 'text/csv');
+    $download[0].click();
+  }
+
   HangarXPLOR._callbacks.DownloadJSON = function(e) {
     e.preventDefault();
     
@@ -200,4 +221,10 @@ HangarXPLOR._exportByName = HangarXPLOR._exportByName || {};
     $download.attr('type', 'text/csv');
     $download[0].click();
   }
+
 })();
+
+
+  
+
+
