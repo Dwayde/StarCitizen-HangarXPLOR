@@ -31,6 +31,6 @@ This is modified version by /u/Dwayde_Wade. If you have any problems/issues plea
 
 * Fix for extra large hangars
 * Working with new website
-* UI and design fixes (selected items, filters, melt value, giftable pledfes and more...)
+* UI and design fixes (selected items, filters, melt value, gift-able pledges and more...)
 * New filter for selected items
 * Reload hangar button (clear cache possibility)
