@@ -109,8 +109,17 @@ HangarXPLOR._exportByName = HangarXPLOR._exportByName || {};
 
         var searchArr = ship_name.toLowerCase().split(" ");
         pledge.ccud = true;
+        var inc = false;
         for (i = 0; i < searchArr.length; i++) {
-          if(pledge.name.toLowerCase().includes(searchArr[i].toLowerCase().replace('.', ''))) {
+          inc = true;
+          searchArr[i] = searchArr[i].toLowerCase().replaceAll('.', '');
+          if(pledge.name.toLowerCase().includes(searchArr[i])) {
+            pledge.ccud = false;
+          }
+        }
+        if(!inc) {
+          search_ship_name = ship_name.toLowerCase().replaceAll('.', '');
+          if(pledge.name.toLowerCase().includes(search_ship_name)) {
             pledge.ccud = false;
           }
         }
