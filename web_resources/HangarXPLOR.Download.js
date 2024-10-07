@@ -88,6 +88,8 @@ HangarXPLOR._exportByName = HangarXPLOR._exportByName || {};
       pledge.warbond = pledge.name.toLowerCase().indexOf('warbond') > -1;
       pledge.ship = false;
 
+      pledge.price = pledge.cost.replace('$', '').replace('USD', '').replace(' ', '').trim();
+
       if(pledge.name.toLowerCase().includes('gear')) {
         pledge.gear = true;
       }
