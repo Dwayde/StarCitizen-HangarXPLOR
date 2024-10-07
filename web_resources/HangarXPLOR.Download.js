@@ -110,7 +110,7 @@ HangarXPLOR._exportByName = HangarXPLOR._exportByName || {};
         var searchArr = ship_name.toLowerCase().split(" ");
         pledge.ccud = true;
         for (i = 0; i < searchArr.length; i++) {
-          if(pledge.name.toLowerCase().includes(searchArr[i].toLowerCase())) {
+          if(pledge.name.toLowerCase().includes(searchArr[i].toLowerCase().replace('.', ''))) {
             pledge.ccud = false;
           }
         }
