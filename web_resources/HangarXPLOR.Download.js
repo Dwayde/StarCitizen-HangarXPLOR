@@ -86,31 +86,29 @@ HangarXPLOR._exportByName = HangarXPLOR._exportByName || {};
       pledge.lti = $('.title:contains(Lifetime Insurance)', $pledge).length > 0;
       pledge.date = $('.date-col:first', $pledge).text().replace(/created:\s+/gi, '').trim();
       pledge.warbond = pledge.name.toLowerCase().indexOf('warbond') > -1;
+      pledge.ship = false;
 
-      return $('.kind:contains(Ship)', this).parent().map(function() {
+      $('.kind:contains(Ship)', this).parent().map(function() {
         var $ship = this;
         var ship_orig_name = $('.title', $ship).text();
         var ship_name = $('.title', $ship).text().trim();
+
+        pledge.ship = true;
         
         pledge.manufacturer_code = $('.liner span', $ship).text().trim();
-        pledge.lti         = pledge.lti;
         pledge.ship_name   = ship_name;
         pledge.orig_name   = ship_orig_name;
         pledge.warbond     = pledge.warbond;
         pledge.entity_type = 'ship';
-        pledge.pledge_id   = pledge.id;
-        pledge.pledge_name = pledge.name;
-        pledge.pledge_date = pledge.date;
-        pledge.pledge_cost = pledge.cost;
 
-        if(pledge.pledge_name != pledge.name) {
-          pledge.ccud = true;
-        } else {
+        if(pledge.name.includes(ship_name)) {
           pledge.ccud = false;
+        } else {
+          pledge.ccud = true;
         }
         
-        return pledge;
-      }).get()
+      }).get();
+      return pledge;
     }).get();
   }
 
