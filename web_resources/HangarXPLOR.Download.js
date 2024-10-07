@@ -98,7 +98,6 @@ HangarXPLOR._exportByName = HangarXPLOR._exportByName || {};
         pledge.orig_name   = ship_orig_name;
         pledge.warbond     = pledge.warbond;
         pledge.entity_type = 'ship';
-        pledge.ship_name   = nickname.length > 0 ? nickname : ship.ship_name;
         pledge.pledge_id   = pledge.id;
         pledge.pledge_name = pledge.name;
         pledge.pledge_date = pledge.date;
