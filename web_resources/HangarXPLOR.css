@@ -19,7 +19,7 @@
 
 .js-bulk-ui { bottom: 0px; left: 0px; z-index: 102; position: fixed; background: rgba(12,19,25,0.9); }
 .js-bulk-ui .inner { padding: 15px 20px 15px 20px; background: url('https://robertsspaceindustries.com/rsi/static/images/common/fading-bars-top.png') repeat-x top left, url('https://robertsspaceindustries.com/rsi/static/images/common/fading-bars-bottom.png') repeat-x bottom left, rgba(0,0,0,0.4); }
-.js-bulk-ui .value { text-align: right; }
+.js-bulk-ui .value { text-align: center; }
 .js-bulk-ui .value .amount { color: #25e4ff; font-size: 23px; text-transform: none; font-family: 'Electrolize'; display: inline-block; text-align: right; }
 .js-bulk-ui .value .label,
 .js-bulk-ui .value .label-short { color: #6c84a2; font-size: 10px; text-transform: uppercase; font-family: 'Electrolize'; display: inline-block; text-align: left; padding-left: 4px; width: 67px; }
@@ -83,8 +83,4 @@
 }
 .exportbuttoncsv {
     margin-top: 10px;
-}
-
-.value {
-    text-align: center;
 }
