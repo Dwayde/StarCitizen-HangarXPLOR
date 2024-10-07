@@ -171,8 +171,8 @@ HangarXPLOR._exportByName = HangarXPLOR._exportByName || {};
     var $target = $(HangarXPLOR._selected.length > 0 ? HangarXPLOR._selected : HangarXPLOR._inventory);
     
     // TODO: CSV support will need to be careful of user-entered data...
-    var buffer = "Name, Ship, LTI, ID, Cost, Date\n";
-    buffer = buffer + HangarXPLOR.GetPledgeList($target).map(function(pledge) { return [ '"' + pledge.name + '"', '"' + pledge.ship_name + '"', pledge.lti, pledge.id, pledge.price, pledge.date + '"' ].join(',')}).join('\n')
+    var buffer = "Name, Ship, CCUd, LTI, ID, Cost, Date\n";
+    buffer = buffer + HangarXPLOR.GetPledgeList($target).map(function(pledge) { return [ '"' + pledge.name + '"', '"' + pledge.ship_name + '"', pledge.ccud, pledge.lti, pledge.id, pledge.price, pledge.date + '"' ].join(',')}).join('\n')
 
     $download.attr('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(buffer));
     $download.attr('download', 'pledgelist_' + formatedCurDate + '.csv');
