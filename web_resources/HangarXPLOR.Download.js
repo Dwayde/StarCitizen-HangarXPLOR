@@ -88,6 +88,10 @@ HangarXPLOR._exportByName = HangarXPLOR._exportByName || {};
       pledge.warbond = pledge.name.toLowerCase().indexOf('warbond') > -1;
       pledge.ship = false;
 
+      if(pledge.name.toLowerCase().includes('gear')) {
+        pledge.gear = true;
+      }
+
       $('.kind:contains(Ship)', this).parent().map(function() {
         var $ship = this;
         var ship_orig_name = $('.title', $ship).text();
@@ -101,10 +105,12 @@ HangarXPLOR._exportByName = HangarXPLOR._exportByName || {};
         pledge.warbond     = pledge.warbond;
         pledge.entity_type = 'ship';
 
-        if(pledge.name.includes(ship_name)) {
-          pledge.ccud = false;
-        } else {
-          pledge.ccud = true;
+        var searchArr = ship_name.toLowerCase().split(" ");
+        pledge.ccud = true;
+        for (i = 0; i < searchArr.length; i++) {
+          if(pledge.name.toLowerCase().includes(searchArr[i].toLowerCase())) {
+            pledge.ccud = false;
+          }
         }
         
       }).get();
