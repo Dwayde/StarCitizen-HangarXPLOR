@@ -76,8 +76,8 @@ HangarXPLOR.DrawUI = function()
 
 
   // Export json for new website from Dwayde
-  $('.sidenav').append(HangarXPLOR.Button('Download pledges JSON', 'exportbuttonjson js-export-hangar', HangarXPLOR._callbacks.ExportHangarJSON));
-  $('.sidenav').append(HangarXPLOR.Button('Download pledges CSV', 'exportbuttoncsv js-export-hangar', HangarXPLOR._callbacks.ExportHangarCSV));
+  $('.sidenav').append(HangarXPLOR.Button('Pledges JSON', 'exportbuttonjson js-export-hangar', HangarXPLOR._callbacks.ExportHangarJSON));
+  $('.sidenav').append(HangarXPLOR.Button('Pledges CSV', 'exportbuttoncsv js-export-hangar', HangarXPLOR._callbacks.ExportHangarCSV));
 
 
   // Clear cache button
