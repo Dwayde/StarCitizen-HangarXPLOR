@@ -74,6 +74,12 @@ HangarXPLOR.DrawUI = function()
 
   $controls3.append(HangarXPLOR.SearchBox());
 
+
+  // Export json for new website from Dwayde
+  $('.sidenav').append(HangarXPLOR.Button('Export pledges', 'exportbutton js-export-hangar', HangarXPLOR._callbacks.ExportHangar));
+
+
+
   // Clear cache button
 
   /*var toprow = $('.top');
@@ -85,6 +91,7 @@ HangarXPLOR.DrawUI = function()
       $('<span>', { class: 'right-section'})
     )
   );*/
+
   $('<span>', { class: 'clearcachebutton shadow-button trans-02s trans-color clearcaches js-clear-cache', id: 'clearCache'}).append(
     $('<span>', { class: 'icon trans-02s' }),
     $('<span>', { class: 'label js-label trans-02s'}).text("Reload hangar"),

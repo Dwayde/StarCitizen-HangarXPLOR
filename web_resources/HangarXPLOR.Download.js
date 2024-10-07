@@ -74,21 +74,75 @@ HangarXPLOR._exportByName = HangarXPLOR._exportByName || {};
       }).get()
     }).sort(function(a, b) { return a.manufacturer == b.manufacturer ? (a.name < b.name ? -2 : 2) : (a.manufacturer < b.manufacturer ? -1 : 1); }).get();
   }
-  
-  HangarXPLOR._callbacks.DownloadJSON = function(e) {
+
+  HangarXPLOR.GetPledgeList = function($target) {
+    
+    return $target.map(function() { 
+      var $pledge = this;
+      var pledge = {};
+      pledge.name = $('.js-pledge-name', $pledge).val();
+      pledge.id = $('.js-pledge-id', $pledge).val();
+      pledge.cost = $('.js-pledge-value', $pledge).val();
+      pledge.lti = $('.title:contains(Lifetime Insurance)', $pledge).length > 0;
+      pledge.date = $('.date-col:first', $pledge).text().replace(/created:\s+/gi, '').trim();
+      pledge.warbond = pledge.name.toLowerCase().indexOf('warbond') > -1;
+
+      return pledge;
+    }).get();
+  }
+
+  HangarXPLOR._callbacks.ExportHangar = function(e) {
     e.preventDefault();
+
+    var d = new Date,
+    formatedCurDate = [(d.getFullYear()),
+               d.getMonth() + 1,
+               d.getDate()].join('-') + '_' +
+              [d.getHours(),
+               d.getMinutes(),
+               d.getSeconds()].join('-');
     
     // TODO: Check why
     var $target = $(HangarXPLOR._selected.length > 0 ? HangarXPLOR._selected : HangarXPLOR._inventory);
     
+    $download.attr('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(HangarXPLOR.GetPledgeList($target), null, 2)));
+    $download.attr('download', 'pledgelist_' + formatedCurDate + '.json');
+    $download.attr('type', 'text/json');
+    $download[0].click();
+  }
+  
+
+
+  
+  HangarXPLOR._callbacks.DownloadJSON = function(e) {
+    e.preventDefault();
+    
+    var d = new Date,
+    formatedCurDate = [(d.getFullYear()),
+               d.getMonth() + 1,
+               d.getDate()].join('-') + '_' +
+              [d.getHours(),
+               d.getMinutes(),
+               d.getSeconds()].join('-');
+    // TODO: Check why
+    var $target = $(HangarXPLOR._selected.length > 0 ? HangarXPLOR._selected : HangarXPLOR._inventory);
+    
     $download.attr('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(HangarXPLOR.GetShipList($target), null, 2)));
-    $download.attr('download', 'shiplist.json');
+    $download.attr('download', 'shiplist_ ' + formatedCurDate  + '.json');
     $download.attr('type', 'text/json');
     $download[0].click();
   }
   
   HangarXPLOR._callbacks.DownloadCSV = function(e) {
     e.preventDefault();
+
+    var d = new Date,
+    formatedCurDate = [(d.getFullYear()),
+               d.getMonth() + 1,
+               d.getDate()].join('-') + '_' +
+              [d.getHours(),
+               d.getMinutes(),
+               d.getSeconds()].join('-');
     
     var $target = $(HangarXPLOR._selected.length > 0 ? HangarXPLOR._selected : HangarXPLOR._inventory);
     
@@ -97,7 +151,7 @@ HangarXPLOR._exportByName = HangarXPLOR._exportByName || {};
     buffer = buffer + HangarXPLOR.GetShipList($target).map(function(ship) { return [ '"' + ship.orig_name + '"', ship.lti, ship.warbond, ship.pledge_id, '"' + ship.pledge_name + '"', '"' + ship.pledge_cost + '"', '"' + ship.pledge_date + '"' ].join(',')}).join('\n')
 
     $download.attr('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(buffer));
-    $download.attr('download', 'shiplist.csv');
+    $download.attr('download', 'shiplist_' + formatedCurDate + '.csv');
     $download.attr('type', 'text/csv');
     $download[0].click();
   }
