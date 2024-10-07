@@ -104,16 +104,52 @@ HangarXPLOR._exportByName = HangarXPLOR._exportByName || {};
 
       pledge.ship = false;
       pledge.ship_name = '';
+      pledge.manufacturer_code = '';
+      pledge.manufacturer_name = '';
+      pledge.lookup = '';
+      pledge.ship_code = '';
+      pledge.orig_name = '';
+      pledge.nickname = '';
 
       $('.kind:contains(Ship)', this).parent().map(function() {
         var $ship = this;
         var ship_name = $('.title', $ship).text().trim();
 
-        pledge.ship = true;
+        var ship_orig_name = $('.title', $ship).text();
+        var ship_name = $('.title', $ship).text().trim();
+        ship_name = ship_name.replace(/^(?:Aegis|Anvil|Aopoa|Banu|CNOU|Crusader|Drake|Greycat Industrial|Greycat|Esperia|Kruger|MISC|Origin|RSI|Tumbril|Vanduul|Xi'an)[^a-z0-9]+/gi, '').trim();
+        var lookup = ship_name.toLowerCase();
+        var nickname = $('.custom-name-text', $ship).text();
+        var i, j;
+        
+        for (i = 0, j = HangarXPLOR._shipMatrix.length; i < j; i++) {
+          if (lookup.indexOf(HangarXPLOR._shipMatrix[i].name.toLowerCase()) > -1 || lookup.indexOf((HangarXPLOR._shipMatrix[i].displayName || 'NOTFOUND').toLowerCase()) > -1) {
+  
+            HangarXPLOR.Log('Matched', HangarXPLOR._shipMatrix[i].name, 'in', lookup);
+  
+            lookup = (HangarXPLOR._shipMatrix[i].export || HangarXPLOR._shipMatrix[i].name).toLowerCase().trim();
+            break;
+          }
+        }
+        
+        var ship = HangarXPLOR._exportByName[lookup] || {
+          unidentified: 'Please report this ship to the plugin developers at https://github.com/dolkensp/HangarXPLOR/issues',
+          ship_code: ($('.liner span', $ship).text().trim() + '_' + ship_name).replace(/[^a-z0-9]/gi, '_').replace(/__+/gi, '_'),
+          manufacturer_name: $('.liner', $ship).text().trim().replace(/\(.*\)/, '').trim(),
+          lookup: lookup,
+        };
         
         pledge.manufacturer_code = $('.liner span', $ship).text().trim();
+        pledge.manufacturer_name = ship.manufacturer_name;
+        pledge.lookup = ship.lookup;
+        pledge.ship_code = ship.ship_code;
+        pledge.nickname = nickname;
+
+        pledge.ship = true;
+        
         pledge.ship_name   = ship_name;
         pledge.warbond     = pledge.warbond;
+        pledge.orig_name   = ship_orig_name;
 
         var searchArr = ship_name.toLowerCase().split(" ");
         pledge.ccud = true;
