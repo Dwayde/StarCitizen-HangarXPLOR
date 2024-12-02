@@ -2,7 +2,7 @@
   "description": "This extension improves the Hangar page on RSI page. Adds filters,search and many other improvements. (modified by /u/Dwayde_Wade)",
   "name": "Star Citizen Hangar XPLORer (Dwayde's mod)",
   "short_name": "HangarXPLOR",
-  "version": "2.1.0",
+  "version": "2.2.2",
   "author": "/u/alluran (Peter Dolkens)",
   "icons": {
     "128": "icons/icon_128.png"

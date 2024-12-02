@@ -174,7 +174,7 @@ HangarXPLOR.RefreshBulkUI = function()
       ),
       $('<span>', { class: 'cash' }).append(
         $('<span>', { class: 'amount', text: HangarXPLOR._totalMelt.toLocaleString('en-US', {minimumFractionDigits: 2}) + ' USD' }),
-        $('<span>', { class: 'label', text: 'Total Spend' })
+        $('<span>', { class: 'label', text: 'Total Value' })
       ),
       $('<br>')
   );
