@@ -3,9 +3,12 @@ var HangarXPLOR = HangarXPLOR || {};
 
 HangarXPLOR.ParseUpgrade = function(pledgeName)
 {
-  this.filters.is_upgrade = (pledgeName.indexOf('upgrade') == 0 ||
-                             pledgeName.indexOf('upgrade') == pledgeName.length - 7) &&
-                             pledgeName.indexOf(' to ') > -1;
+  var checkName = pledgeName.toLowerCase();
+
+  // Added new upgrade titles types, disabled case check
+
+  this.filters.is_upgrade = ( checkName.indexOf('upgrade') == 0 ||
+                              checkName.indexOf('upgrade') == checkName.length - 7 || checkName.search(/\upgrade\b/) >= 0 );
   
   if (this.filters.is_upgrade)
   {
@@ -13,7 +16,10 @@ HangarXPLOR.ParseUpgrade = function(pledgeName)
 
     HangarXPLOR._upgradeCount += 1;
 
+    // Added new upgrade titles types
     this.displayName = this.displayName.replace(/^upgrade (- )?/i, '')
-                                       .replace(/^ (- )?upgrade$/i, '');
+                                       .replace(/^ (- )?upgrade$/i, '')
+                                       .replace(/^ (- )?Upgrade$/i, '')
+                                       .replace(/^Upgrade (- )?/i, '');
   }
 }

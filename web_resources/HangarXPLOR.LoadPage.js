@@ -1,4 +1,4 @@
-var delaytime = 60001; //60 second
+var delaytime = 10001; //10 second
 
 
 var HangarXPLOR = HangarXPLOR || {};
@@ -34,7 +34,7 @@ HangarXPLOR.LoadPage = function(pageNo)
         console.log('Finished! Hangar not fully loaded! [ERROR]');
       }*/
       // Auto try again
-      console.log('Don\t worry we will try again in ' + ((delaytime - 1)/1000) + ' seconds!');
+      console.log('No worries we will try again in ' + ((delaytime - 1)/1000) + ' seconds!');
       setTimeout(function() {
         HangarXPLOR.LoadPage(pageNo);
       }, delaytime);

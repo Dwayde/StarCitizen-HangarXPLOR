@@ -90,19 +90,29 @@ HangarXPLOR.Initialize = function()
           $lists = undefined;
           
           HangarXPLOR.UpdateStatus(0);
-          
-          RSI.Api.Account.pledgeLog((payload) => {
-    
-            var today = new Date().toISOString();
-            var safetySalt = '';
-    
-            // CIG Released ship naming in March 2021, which requires us to invalidate cache
-            if (today.substr(0, 7) == '2021-03') safetySalt = today.substr(0, 13) + ':';
-    
-            HangarXPLOR._activeHash = safetySalt + payload.data.rendered.length + ':' + btoa(payload.data.rendered.substr(39, 20)) + ':' + HangarXPLOR._cacheSalt;
+
+
+          try {
+
+            sleep(5000).then(() => {
+              try {
+              getPledge();
+              } catch (e) {
+                console.log("Error accuired while loading #1, no worries we will try again!");
+                setTimeout(function() {
+                  getPledge()
+                }, 3000);
+              }
+            });
+
+          } catch (e) { 
+
+            console.log("Error accuired while loading #2, no worries worry we will try again!");
+            setTimeout(function() {
+              getPledge()
+            }, 3000);
             
-            HangarXPLOR.LoadCache(HangarXPLOR.LoadPage);
-          });
+          }
           
         } else {
           HangarXPLOR.Log('Error locating inventory');
@@ -113,3 +123,38 @@ HangarXPLOR.Initialize = function()
 }
 
 if (HangarXPLOR._initCount++ == 0) HangarXPLOR.Initialize();
+
+
+function getPledge() {
+
+  try {
+
+    RSI.Api.Account.pledgeLog((payload) => {
+        
+      var today = new Date().toISOString();
+      var safetySalt = '';
+
+      // CIG Released ship naming in March 2021, which requires us to invalidate cache
+      if (today.substr(0, 7) == '2021-03') safetySalt = today.substr(0, 13) + ':';
+
+      HangarXPLOR._activeHash = safetySalt + payload.data.rendered.length + ':' + btoa(payload.data.rendered.substr(39, 20)) + ':' + HangarXPLOR._cacheSalt;
+      
+      HangarXPLOR.LoadCache(HangarXPLOR.LoadPage);
+
+    });
+  } catch (e) { 
+
+    console.log("Error accuired while loading #3, no worries we will try again!");
+    setTimeout(function() {
+      getPledge()
+    }, 3000);
+    
+  }
+
+}
+
+
+// sleep time expects milliseconds
+function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}

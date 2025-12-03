@@ -30,6 +30,9 @@ HangarXPLOR._ships = {
     url: 'https://robertsspaceindustries.com/galactapedia/article/bZwQ7r6nkE-f8a-lightning',
     // thumbnail: 'https://cig-galactapedia-prod.s3.amazonaws.com/upload/07841eb5-c02a-49b6-a422-2fc5449f8580'
   },
+  'F7C-M Hornet Heartseeker Mk I': {
+    thumbnail: 'https://i.imgur.com/pJKD2Jg.png',
+  },
   'F8C Lightning Civilian': {
     displayName: 'F8C Lightning: Civilian',
     export: 'F8C Lightning'
