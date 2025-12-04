@@ -88,3 +88,11 @@
 .actions {
     text-align: center;
 }
+
+.account-section #billing>.content, .account-section #subscribers>.content {
+    flex-direction: row !important;
+}
+
+#billing.pledges .inner-content {
+    padding-left: 0px !important;
+}
