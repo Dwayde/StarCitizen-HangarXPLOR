@@ -50,9 +50,7 @@
 .js-bulk-ui .value .label { font-size: 8px; width: 55px; }
 }
 
-@media only screen and (max-width: 1024px) {
-.js-bulk-ui .inner { padding: 15px 10px }
-}
+/* Merged into the responsive block below */
 
 .giftable {
     background: url(https://cdn.robertsspaceindustries.com/static/images/common/shadow_btn_gift.png);
@@ -96,3 +94,160 @@
 #billing.pledges .inner-content {
     padding-left: 0px !important;
 }
+
+@media only screen and (max-width: 1024px) {
+  /* Let RSI's native mobile layout handle column stacking */
+  .account-section #billing>.content,
+  .account-section #subscribers>.content {
+    flex-direction: column !important;
+  }
+
+  /* Stats panel: static instead of fixed overlay, pull to top */
+  .js-bulk-ui {
+    position: relative !important;
+    z-index: auto;
+    width: 100%;
+    order: -1;
+  }
+
+  /* Billing needs flex column for order to work */
+  #billing {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .js-bulk-ui .inner {
+    padding: 10px;
+  }
+
+  .js-bulk-ui .value .amount {
+    font-size: 16px;
+  }
+
+  .js-bulk-ui .value .label,
+  .js-bulk-ui .value .label-short {
+    font-size: 8px;
+    width: auto;
+    padding-left: 2px;
+    padding-right: 6px;
+  }
+
+  .js-bulk-ui .actions a {
+    margin-left: 10px;
+    margin-top: 5px;
+  }
+
+  /* Filter controls: allow wrapping */
+  .js-custom-controls .controls {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 5px;
+    height: auto !important;
+  }
+
+  .js-custom-controls .mrn15 {
+    margin-right: 0;
+  }
+
+  /* Dropdown containers: full width */
+  .js-custom-controls .controls > div:not(.status-selector) {
+    width: 100% !important;
+    min-width: 0;
+  }
+
+  .js-custom-controls .controls > div .selectlist {
+    width: 100%;
+  }
+
+  /* Pager row: dropdown + page numbers side by side */
+  .js-custom-controls .pager {
+    width: auto !important;
+    flex-shrink: 0;
+  }
+
+  /* Toggle buttons: inline, multiple per row */
+  .js-custom-controls .controls > div.status-selector.tag-wrapper {
+    display: inline-block !important;
+    width: auto !important;
+    float: none !important;
+    margin: 0 5px 5px 0 !important;
+  }
+
+  /* Search box */
+  .js-custom-controls .controls.js-custom-search-wrapper {
+    margin: 0;
+  }
+
+  /* MY HANGAR header area: title, buttons, description */
+  .inner-content > .top {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .inner-content > .top > .title {
+    width: 100%;
+    text-align: center;
+  }
+
+  .inner-content > .top > .shadow-button {
+    float: none !important;
+  }
+
+  .inner-content > .top > p {
+    width: 100%;
+    text-align: center;
+  }
+
+  .inner-content > .top > .separator,
+  .inner-content > .top > .cboth {
+    width: 100%;
+  }
+
+  /* Reload hangar button */
+  .clearcachebutton {
+    margin-left: 0 !important;
+    display: inline-block !important;
+    width: auto !important;
+  }
+
+  /* Back to Dashboard: auto width, centered */
+  #billing > a,
+  .back-button,
+  a[href*="dashboard"] {
+    width: auto !important;
+    align-self: center !important;
+  }
+
+  /* Pledge item details: single column via flexbox */
+  .basic-infos .wrapper-col {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .basic-infos .wrapper-col .date-col,
+  .basic-infos .wrapper-col .items-col {
+    width: 100% !important;
+    float: none !important;
+  }
+
+  /* Sidenav export buttons: centered row below menu */
+  .sidenav {
+    text-align: center;
+  }
+
+  .sidenav .exportbuttonjson,
+  .sidenav .exportbuttoncsv {
+    display: inline-block !important;
+    float: none !important;
+  }
+
+  /* Inner content padding */
+  #billing.pledges .inner-content {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+

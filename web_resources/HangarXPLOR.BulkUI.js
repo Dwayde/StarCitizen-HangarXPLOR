@@ -20,6 +20,7 @@ HangarXPLOR.BulkUI = function()
   var minOffset = $('.billing-title-pager-wrapper').offset().top;
   
   var positionUI = function() {
+    if (!HangarXPLOR.$bulkUI || !HangarXPLOR.$bulkUI[0]) return;
     var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
     if (scrollTop > document.body.scrollHeight - maxOffset - bulkHeight) HangarXPLOR.$bulkUI[0].style.top = (document.body.scrollHeight - maxOffset - bulkHeight - scrollTop + 150) + 'px';
     else if (scrollTop < minOffset) HangarXPLOR.$bulkUI[0].style.top = (minOffset - scrollTop + 150) + 'px';
@@ -29,7 +30,7 @@ HangarXPLOR.BulkUI = function()
     HangarXPLOR.$bulkUI[0].style.top = '';
     HangarXPLOR.$bulkUI[0].style.bottom = '15px';
   };
-  
+
   $(document).on('scroll', positionUI);
   
   var $billing = $('#billing');
