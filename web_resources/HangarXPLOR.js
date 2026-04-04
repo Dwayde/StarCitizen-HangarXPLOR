@@ -63,22 +63,14 @@ HangarXPLOR.Initialize = function()
           return ship;
         }))
       
-        .sort((a, b) => {
-          if (a.name.length > b.name.length) return -1;
-          if (a.name < b.name) return 0;
-          return 1;
-        });
+        .sort((a, b) => b.name.length - a.name.length || a.name.localeCompare(b.name));
       
       HangarXPLOR._componentMatrix = []
         .concat($.map(HangarXPLOR._components, (component, key) => {
           if (component.name == undefined) component.name = key;
           return component;
         }))
-        .sort((a, b) => {
-          if (a.name.length > b.name.length) return -1;
-          if (a.name < b.name) return -1;
-          return 1;
-        });
+        .sort((a, b) => b.name.length - a.name.length || a.name.localeCompare(b.name));
       
       HangarXPLOR.LoadSettings(function() {
         var $lists = $('.list-items');
