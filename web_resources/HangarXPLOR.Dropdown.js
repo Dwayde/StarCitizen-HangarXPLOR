@@ -34,7 +34,17 @@ HangarXPLOR.Dropdown = function(options, width, className, callback)
   $options.bind('mouseover', function() { $(this).addClass('hover'); });
   $options.bind('mouseout', function() { $(this).removeClass('hover'); });
   
-  $dropdown.bind('click', function() { $ul.toggle(); });
+  $dropdown.bind('click', function(e) {
+    e.stopPropagation();
+    // Close all other open dropdowns first
+    $('ul.body').not($ul).hide();
+    $ul.toggle();
+  });
+
+  // Close dropdown when clicking outside
+  $(document).on('click', function() {
+    $ul.hide();
+  });
   $options.bind('click', function(e) {
     var $this = $(this);
     
