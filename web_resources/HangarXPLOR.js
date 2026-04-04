@@ -14,6 +14,27 @@ HangarXPLOR._initCount     = HangarXPLOR._initCount || 0;
 
 var RSI = RSI || {};
 
+// Page type detection
+HangarXPLOR._pageType = window.location.pathname.includes('buy-back-pledges') ? 'buyback' : 'hangar';
+
+// Buyback-specific state variables
+HangarXPLOR._buybackInventory = [];                  // Inventory containing all buyback pledges
+HangarXPLOR._buybackFiltered = [];                   // Filtered buyback pledges for display
+HangarXPLOR._buybackRaw = [];                        // Raw HTML for buyback caching
+HangarXPLOR._buybackCounts = {                       // Type counts for summary panel
+  total: 0,
+  ships: 0,
+  paints: 0,
+  upgrades: 0,
+  packages: 0,
+  addons: 0,
+  components: 0,
+  weapons: 0,
+  decorations: 0,
+  subscriber: 0,
+  other: 0
+};
+
 
 HangarXPLOR.Initialize = function()
 {  
@@ -73,41 +94,66 @@ HangarXPLOR.Initialize = function()
         .sort((a, b) => b.name.length - a.name.length || a.name.localeCompare(b.name));
       
       HangarXPLOR.LoadSettings(function() {
-        var $lists = $('.list-items');
-        
-        if ($lists.length == 1) {
-          HangarXPLOR.BulkUI();
-          HangarXPLOR.$list = $($lists[0]);
-          HangarXPLOR.$list.addClass('js-inventory');
-          $lists = undefined;
-          
-          HangarXPLOR.UpdateStatus(0);
 
+        // Branch based on page type
+        if (HangarXPLOR._pageType === 'buyback') {
+          // Buyback page initialization
+          var $pledgesList = $('section.available-pledges ul.pledges');
 
-          try {
+          if ($pledgesList.length >= 1) {
+            HangarXPLOR.BuybackBulkUI();
+            HangarXPLOR.$list = $($pledgesList[0]);
+            HangarXPLOR.$list.addClass('js-buyback-inventory');
 
-            sleep(5000).then(() => {
-              try {
-              getPledge();
-              } catch (e) {
-                console.log("Error accuired while loading #1, no worries we will try again!");
-                setTimeout(function() {
-                  getPledge()
-                }, 3000);
-              }
-            });
+            HangarXPLOR.UpdateStatus(0);
 
-          } catch (e) { 
+            // Generate a simple hash based on current timestamp for buyback cache
+            // Buyback pages don't have the same pledgeLog API
+            var today = new Date().toISOString();
+            HangarXPLOR._buybackActiveHash = today.substr(0, 10) + ':' + HangarXPLOR._cacheSalt;
 
-            console.log("Error accuired while loading #2, no worries worry we will try again!");
-            setTimeout(function() {
-              getPledge()
-            }, 3000);
-            
+            HangarXPLOR.LoadBuybackCache(HangarXPLOR.LoadBuybackPage);
+          } else {
+            HangarXPLOR.Log('Error locating buyback pledges list');
           }
-          
         } else {
-          HangarXPLOR.Log('Error locating inventory');
+
+          var $lists = $('.list-items');
+          
+          if ($lists.length == 1) {
+            HangarXPLOR.BulkUI();
+            HangarXPLOR.$list = $($lists[0]);
+            HangarXPLOR.$list.addClass('js-inventory');
+            $lists = undefined;
+            
+            HangarXPLOR.UpdateStatus(0);
+
+
+            try {
+
+              sleep(5000).then(() => {
+                try {
+                getPledge();
+                } catch (e) {
+                  console.log("Error accuired while loading #1, no worries we will try again!");
+                  setTimeout(function() {
+                    getPledge()
+                  }, 3000);
+                }
+              });
+
+            } catch (e) { 
+
+              console.log("Error accuired while loading #2, no worries worry we will try again!");
+              setTimeout(function() {
+                getPledge()
+              }, 3000);
+              
+            }
+            
+          } else {
+            HangarXPLOR.Log('Error locating inventory');
+          }
         }
       });
     }
