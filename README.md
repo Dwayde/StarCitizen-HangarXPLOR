@@ -14,6 +14,11 @@ Current features include:
 * Cache your hangar for faster load times
 * Export your ships in [Hangar Transfer Format](https://docs.starcitizen.fans/) for use with other apps
 * Export your ships in CSV format
+* Pre-load ALL hangar logs pages
+* Export hangar logs to csv
+* Pre-load all buyback pages
+* Search and filter possibility on buyback page
+* Export csv/json of buybacks
 
 Bulk melt and gift Add-On: [XPLOR BULK](https://github.com/Dwayde/StarCitizen-HangarXPLOR-Bulk).
 
