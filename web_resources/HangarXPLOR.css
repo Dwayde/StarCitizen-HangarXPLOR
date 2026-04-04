@@ -251,3 +251,48 @@
   }
 }
 
+#pagestoloadtxt3 {
+    font-family: "univia-pro", sans-serif;
+    font-size: 12px;
+    margin-left: 10px;
+    color: #5a7a93;
+}
+
+#pagestoloadtxt2 {
+    font-family: "univia-pro", sans-serif;
+    font-size: 14px;
+    color: #5a7a93;
+}
+#pagestoloadtxt {
+    font-family: "univia-pro", sans-serif;
+    font-size: 14px;
+    color: #5a7a93;
+}
+
+.loadalllogs {
+    margin-left: 40px;
+}
+
+.infototallogs {
+    font-family: "univia-pro", sans-serif;
+    font-size: 12px;
+    color: #61d8fd;
+}
+
+.inputlogs {
+    background-color: rgba(0, 0, 0, .4);
+    border: 1px solid rgba(22, 42, 63, .8);
+    font-size: 12px;
+    color: #355e78;
+    width: 80px;
+    padding: 10px 15px;
+    display: inline-block;
+    margin-bottom: 3px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all .2s !important;
+    -moz-transition: all .2s !important;
+    -o-transition: all .2s !important;
+    -ms-transition: all .2s !important;
+    transition: all .2s !important;
+}

@@ -98,7 +98,7 @@ HangarXPLOR.ParsePledge = function()
     if (this.filters.is_package)  HangarXPLOR._packageCount += 1;
     if (this.filters.is_giftable) HangarXPLOR._giftableCount += 1;
     
-    this.displayName = this.displayName.replace(" Upgrade", "");
+    //this.displayName = this.displayName.replace(" Upgrade", "");
 
     // TODO: Support for HangarXPLOR._setting.NoPledgeID
     this.displayName = this.pledge_type + ' - ' + this.displayName + ' (' + this.pledge_id + ')';
