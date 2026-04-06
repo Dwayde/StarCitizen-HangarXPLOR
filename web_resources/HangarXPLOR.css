@@ -323,3 +323,10 @@
 /* Ensure pledges list clears the controls */
 .available-pledges ul.pledges { clear: both; }
 .js-buyback-inventory { margin-top: 10px; }
+
+
+.loading {
+  color: #6c84a2;
+  font-family: 'Electrolize';
+  font-size: 12px;
+}

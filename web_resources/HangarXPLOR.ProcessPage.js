@@ -9,12 +9,20 @@ HangarXPLOR.ProcessPage = function($page, pageNo)
   
   var $items = $('.list-items > li', $page);
 
+  // get last page
+  if($('.raquo.btn', $page).length > 0) {
+    var lastpage = $('.raquo.btn', $page).attr('href');
+    var lp = lastpage.split("=")[1];
+  } else {
+    var lp = 0;
+  }
+
   // Check on last page
   var actualpage = $('.trans-02s.trans-color.active', $page).attr('href');
   var ap = actualpage.split("=")[1];
 
   if(pageNo != Number(ap)) {
-    console.log("Last page");
+    //console.log("Last page");
     isEmpty = true;
   }
       
@@ -24,9 +32,14 @@ HangarXPLOR.ProcessPage = function($page, pageNo)
     HangarXPLOR.SaveCache();
     HangarXPLOR.DrawUI();
   } else {
-      console.log("Page " + (pageNo) + " loading...");
+      //console.log("Page " + (pageNo) + " loading...");
       HangarXPLOR.LoadPage(pageNo + 1);
-      console.log("Page " + (pageNo) + " loaded!");
+      //console.log("Page " + (pageNo) + " loaded!");
+      if(lp == 0) {
+        document.getElementById('loading').innerHTML = "Finish!";
+      } else {
+        document.getElementById('loading').innerHTML = "" + pageNo.toString() + "/" + lp + " pages...";
+      }
   }
 
 }

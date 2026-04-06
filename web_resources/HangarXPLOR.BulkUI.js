@@ -123,6 +123,8 @@ HangarXPLOR.UpdateStatus = function(pageNo)
   HangarXPLOR.$bulkUI.$loading.append(
     $('<span>', { class: 'amount', text: 'Loading' }),
     $('<span>', { class: 'label', text: 'Please Wait' }),
+    $('<br><br>'),
+    $('<span>', { class: 'loading', text: '', id: 'loading' }),
     $('<br>')
   );
 }
