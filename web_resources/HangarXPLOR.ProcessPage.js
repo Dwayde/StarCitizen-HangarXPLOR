@@ -8,6 +8,15 @@ HangarXPLOR.ProcessPage = function($page, pageNo)
   var isEmpty = $('.list-items > li > .empy-list', $page).length > 0;
   
   var $items = $('.list-items > li', $page);
+
+  // Check on last page
+  var actualpage = $('.trans-02s.trans-color.active', $page).attr('href');
+  var ap = actualpage.split("=")[1];
+
+  if(pageNo != Number(ap)) {
+    console.log("Last page");
+    isEmpty = true;
+  }
       
   if (!isEmpty) $items.each(HangarXPLOR.ParsePledge);
 
