@@ -35,6 +35,7 @@ HangarXPLOR.ProcessPage = function($page, pageNo)
       //console.log("Page " + (pageNo) + " loading...");
       HangarXPLOR.LoadPage(pageNo + 1);
       //console.log("Page " + (pageNo) + " loaded!");
+      document.getElementById("loading").textContent = "";
       if(lp == 0) {
         document.getElementById('loading').innerHTML = "Finish!";
       } else {

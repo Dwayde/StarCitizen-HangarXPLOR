@@ -35,7 +35,7 @@ HangarXPLOR.LoadPage = function(pageNo)
       }*/
       // Auto try again
       console.log('No worries we will try again in ' + ((delaytime - 1)/1000) + ' seconds!');
-      document.getElementById("loading").innerHTML += "<br>Anti-spam, retrying...</font>";
+      document.getElementById("loading").innerHTML += "<br>Anti-spam, retrying...";
       setTimeout(function() {
         HangarXPLOR.LoadPage(pageNo);
       }, delaytime);

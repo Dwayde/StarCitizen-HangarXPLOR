@@ -124,7 +124,7 @@ HangarXPLOR.UpdateStatus = function(pageNo)
     $('<span>', { class: 'amount', text: 'Loading' }),
     $('<span>', { class: 'label', text: 'Please Wait' }),
     $('<br><br>'),
-    $('<span>', { class: 'loading', text: '', id: 'loading' }),
+    $('<span>', { class: 'loading', text: 'Preparing...', id: 'loading' }),
     $('<br>')
   );
 }
