@@ -12,14 +12,22 @@ HangarXPLOR.ProcessPage = function($page, pageNo)
   // get last page
   if($('.raquo.btn', $page).length > 0) {
     var lastpage = $('.raquo.btn', $page).attr('href');
-    var lp = lastpage.split("=")[1];
+    if(typeof lastpage !== "undefined") {
+      var lp = lastpage.split("=")[1];
+    } else {
+      var lp = 1;
+    }
   } else {
-    var lp = 0;
+    var lp = 1;
   }
 
   // Check on last page
   var actualpage = $('.trans-02s.trans-color.active', $page).attr('href');
-  var ap = actualpage.split("=")[1];
+  if(typeof actualpage !== "undefined") {
+    var ap = actualpage.split("=")[1];
+  } else {
+    var ap = 1;
+  }
 
   if(pageNo != Number(ap)) {
     //console.log("Last page");
