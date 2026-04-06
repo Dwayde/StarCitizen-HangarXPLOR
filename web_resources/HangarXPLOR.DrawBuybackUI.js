@@ -3,7 +3,7 @@ var HangarXPLOR = HangarXPLOR || {};
 
 // Buyback UI state
 HangarXPLOR._buybackType = 'All';
-HangarXPLOR._buybackSort = 'PledgeId';
+HangarXPLOR._buybackSort = 'Modified';
 HangarXPLOR._buybackFeature = HangarXPLOR._buybackFeature || {};
 HangarXPLOR._buybackPagerCallbacks = [];
 
@@ -53,11 +53,11 @@ HangarXPLOR.DrawBuybackUI = function() {
   }));
 
   $controls1.append(HangarXPLOR.Dropdown([
+    { Value: 'Modified', Text: 'Last Modified', Selected: HangarXPLOR._buybackSort == 'Modified' },
     { Value: 'PledgeId', Text: 'Recent First', Selected: HangarXPLOR._buybackSort == 'PledgeId' },
     { Value: 'Name', Text: 'Name A-Z', Selected: HangarXPLOR._buybackSort == 'Name' },
     { Value: 'NameDesc', Text: 'Name Z-A', Selected: HangarXPLOR._buybackSort == 'NameDesc' },
     { Value: 'Type', Text: 'By Type', Selected: HangarXPLOR._buybackSort == 'Type' },
-    { Value: 'Modified', Text: 'Last Modified', Selected: HangarXPLOR._buybackSort == 'Modified' },
   ], '137px', 'js-buyback-sort', function(e, value) {
     HangarXPLOR._buybackSort = value;
     HangarXPLOR.RenderBuyback();
