@@ -318,3 +318,11 @@ function removeTags(str) {
 	// HTML tag with a null string.
 	return str.replace(/(<([^>]+)>)/ig, '');
 }
+
+
+
+addEventListener("wheel", (event) => { 
+  if(document.getElementsByClassName('scrollbar').length > 1) {
+    document.getElementsByClassName('scrollbar')[1].remove();
+  }
+ });
