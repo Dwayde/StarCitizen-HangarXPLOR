@@ -128,7 +128,7 @@ const addLoadLogElement = async () => {
   await delay(3000);
   var obj = document.getElementById('pledge-log');
   var inHtml = obj.innerHTML;
-  var addButton = '<h2><span class="icon"></span>HANGAR LOAD FULL LOG</h2><br><span class="loadalllogs shadow-button trans-02s trans-color" id="loadLogs"><span class="icon trans-02s"></span><span class="label js-label trans-02s">Load selected logs</span><span class="left-section"></span><span class="right-section"></span></span>&nbsp;&nbsp;<span id="pagestoloadtxt">Load pages <b>FROM</b>: &nbsp&nbsp;</span><input class="inputlogs trans-02s trans-color trans-box-shadow" type=number id=pagestoloadfrom value=1 /><span id="pagestoloadtxt2">&nbsp;&nbsp;<b>TO</b>: &nbsp&nbsp;</span><input class="inputlogs trans-02s trans-color trans-box-shadow" type=number id=pagestoloadto value=50 /><br>&nbsp;&nbsp;&nbsp;&nbsp;<span id="pagestoloadtxt3"><b>*</b><i>Strongly recommend to not load more than 50 pages at time! (or be ready to very long loading)</i></span>';
+  var addButton = '<h2><span class="icon"></span>AUTOLOAD HANGAR LOG</h2><br><span class="loadalllogs shadow-button trans-02s trans-color" id="loadLogs"><span class="icon trans-02s"></span><span class="label js-label trans-02s">Load selected logs</span><span class="left-section"></span><span class="right-section"></span></span>&nbsp;&nbsp;<span id="pagestoloadtxt">Load pages <b>FROM</b>: &nbsp&nbsp;</span><input class="inputlogs trans-02s trans-color trans-box-shadow" type=number id=pagestoloadfrom value=1 /><span id="pagestoloadtxt2">&nbsp;&nbsp;<b>TO</b>: &nbsp&nbsp;</span><input class="inputlogs trans-02s trans-color trans-box-shadow" type=number id=pagestoloadto value=50 /><br>&nbsp;&nbsp;&nbsp;&nbsp;<span id="pagestoloadtxt3"><b>*</b><i>Strongly recommend to not load more than 50 pages at time! (or be ready to very long loading)</i></span>';
   if(!inHtml.includes(addButton)) {
      document.getElementById('pledge-log').innerHTML = addButton + inHtml;
   }
@@ -194,6 +194,7 @@ async function loadAllLogs() {
   ).insertAfter('.head').parent('.padder').parent('#pledge-log');
 
   document.getElementById('exportlogs').addEventListener('click', exportlogs);
+  document.getElementById('exportlogs').style.display = "none";
 
     $('<span>', { class: 'infototallogs', id: 'infototallogs'}).append(
   ).insertAfter('.exportlogs').parent('.padder').parent('#pledge-log');
@@ -239,7 +240,7 @@ async function loadAllLogs() {
     document.getElementById('infototallogs').innerHTML = "&nbsp;&nbsp;<br>Total loaded (<b>"+startpage+"-"+pageTotal+" of " + responsePages + "</b> pages):<b> " + totalpages + "/" + (pageTotal - startpage + 1)  + "</b> pages (<font color=orange><b>Loading...</b></font>)";
     totalpages++;
   }
-
+  document.getElementById('exportlogs').style.display = "";
   document.getElementById('infototallogs').innerHTML = "&nbsp;&nbsp;<br>Total loaded (<b>"+startpage+"-"+pageTotal+" of " + responsePages + "</b> pages):<b> " + (totalpages - 1) + "/" + (pageTotal - startpage + 1)  + "</b> pages (<font color=#0f0><b>Completed</b></font>)";
 
 
