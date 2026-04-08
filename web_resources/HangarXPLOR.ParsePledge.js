@@ -21,6 +21,7 @@ HangarXPLOR.ParsePledge = function()
   var h3Text     = $('.title-col h3', this)[0];
 
   var attributedText = $('.row .basic-infos .wrapper-col .title-col .availability', this)[0];
+  var upgradedText = $('.row .basic-infos .wrapper-col .title-col .upgraded', this)[0];
 
   if (pledgeName.length > 0) {
 
@@ -117,12 +118,16 @@ HangarXPLOR.ParsePledge = function()
       }
 
       //Add gitable image to package in top right corner
-      var wrapper_new = $('.row .basic-infos .wrapper-col', this);
-      wrapper_new.append($("<span>", { class: 'effect trans-opacity trans-03s giftable' }));
+      $wrapper.append($("<span>", { class: 'effect trans-opacity trans-03s giftable' }));
     }
     
     $wrapper.append($("<div>", { class: 'date-col melt-col' }).append($('<label>', { text: 'Melt Value:  ' }), this.pledge_cost));
     $wrapper.append($("<div>", { class: 'items-col pledge-col' }).append($('<label>', { text: 'Base Pledge:  ' }), this.pledge_name));
+
+    // Add uprades history
+    if (this.filters.is_ship && upgradedText !== undefined) {
+      $wrapper.append($("<a>", { class: "shadow-button trans-02s trans-color js-upgrade-log upgrade"}).append($('<span>', { class: "label js-label trans-02s", text: "Upgrades"})).append($('<span>', { class: "icon trans-02s"})).append($('<span>', { class: "effect trans-opacity trans-03s"})).append($('<span>', { class: "left-section"})).append($('<span>', { class: "right-section"})));
+    }
 
     this.sortName = this.displayName;
     h3Text.textContent = this.displayName;

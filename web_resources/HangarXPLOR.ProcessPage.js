@@ -15,10 +15,10 @@ HangarXPLOR.ProcessPage = function($page, pageNo)
     if(typeof lastpage !== "undefined") {
       var lp = lastpage.split("=")[1];
     } else {
-      var lp = 1;
+      var lp = pageNo;
     }
   } else {
-    var lp = 1;
+    var lp = pageNo;
   }
 
   // Check on last page

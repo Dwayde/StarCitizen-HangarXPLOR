@@ -330,3 +330,9 @@
   font-family: 'Electrolize';
   font-size: 12px;
 }
+
+.shadow-button.upgrade {
+  position: absolute;
+  top: 10%;
+  right: 6%;
+}
