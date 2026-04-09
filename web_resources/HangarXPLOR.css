@@ -331,8 +331,15 @@
   font-size: 12px;
 }
 
-.shadow-button.upgrade {
-  position: absolute;
-  top: 10%;
-  right: 6%;
+
+@media only screen and (min-width: 1024px) {
+  .shadow-button.upgrade {
+    position: absolute;
+    top: 10%;
+    right: 6%;
+  }
+}
+
+#billing .content .bottom.billing-title-pager-wrapper {
+  display: none !important;
 }

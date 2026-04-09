@@ -64,6 +64,20 @@ HangarXPLOR.DrawBuybackUI = function() {
     HangarXPLOR.RefreshBuybackPager();
   }));
 
+  var $bottomControls = $('<div>', { class: 'js-buyback-extended-controls' });
+
+  $bottomControls.append(HangarXPLOR.BuybackPager([
+    { Value: '9999', Text: 'Display All', Class: 'first', Selected: HangarXPLOR._buybackPageCount == 9999 },
+    { Value: '10', Text: '10 per page', Selected: HangarXPLOR._buybackPageCount == 10 },
+    { Value: '20', Text: '20 per page', Selected: HangarXPLOR._buybackPageCount == 20 },
+    { Value: '50', Text: '50 per page', Selected: HangarXPLOR._buybackPageCount == 50 },
+    { Value: '100', Text: '100 per page', Selected: HangarXPLOR._buybackPageCount == 100 },
+  ], '130px', 'js-buyback-pager', function() {
+    HangarXPLOR.RenderBuyback();
+  }));
+
+  $('.pledges').after($bottomControls);
+
   // Create a container for pager and search OUTSIDE the .filters form (below the blue line)
   var $extendedControls = $('<div>', { class: 'js-buyback-extended-controls' });
   $controlsContainer.after($extendedControls);

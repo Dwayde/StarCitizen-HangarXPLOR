@@ -53,6 +53,18 @@ HangarXPLOR.DrawUI = function()
     { Value: '50', Text: '50 per page', Selected: HangarXPLOR._pageCount == 50 },
     { Value: '100', Text: '100 per page', Selected: HangarXPLOR._pageCount == 100 },
   ], '140px', 'js-custom-pager', HangarXPLOR.Render ));
+
+  var $bottomControls = $('<div>', { class: 'controls clearfix mrn15' });
+
+  $bottomControls.append(HangarXPLOR.Pager([
+    { Value: '9999', Text: 'Display All', Class: 'first', Selected: HangarXPLOR._pageCount == 9999 },
+    { Value: '10', Text: '10 per page', Selected: HangarXPLOR._pageCount == 10 },
+    { Value: '20', Text: '20 per page', Selected: HangarXPLOR._pageCount == 20 },
+    { Value: '50', Text: '50 per page', Selected: HangarXPLOR._pageCount == 50 },
+    { Value: '100', Text: '100 per page', Selected: HangarXPLOR._pageCount == 100 },
+  ], '140px', 'js-custom-pager', HangarXPLOR.Render ));
+
+  $('.list-items').after($bottomControls);
   
   var toggleHandler = function(e, label, value)
   {
