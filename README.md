@@ -19,6 +19,7 @@ Current features include:
 * Pre-load all buyback pages
 * Search and filter possibility on buyback page
 * Export csv/json of buybacks
+* Apply upgrades chain
 
 Bulk melt and gift Add-On: [XPLOR BULK](https://github.com/Dwayde/StarCitizen-HangarXPLOR-Bulk).
 
@@ -39,5 +40,11 @@ This is modified version by /u/Dwayde_Wade. If you have any problems/issues plea
 * UI and design fixes (selected items, filters, melt value, gift-able pledges and more...)
 * New filter for selected items
 * Reload hangar button (clear cache possibility)
-
+* Export your all pledges in CSV and JSON format
+* Search and filter buyback
+* Export buybacks in CSV and JSON format
+* Preload hangar logs
+* Export hangar logs in CSV format
+* Fixed infinity loading
+* Apply upgrades chains
 * If you like extension and want support me, here is donation link: https://www.paypal.com/donate/?hosted_button_id=FE4Z7JYPRN2DN
