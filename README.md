@@ -31,7 +31,9 @@ Bulk melt and gift Add-On: [XPLOR BULK](https://github.com/Dwayde/StarCitizen-Ha
 
 # Modified
 
-This is modified version by /u/Dwayde_Wade. If you have any problems/issues please feel free to contact me. Also you can ask for new features.
+* This is modified version by /u/Dwayde_Wade. 
+* If you have any problems/issues please feel free to contact me. (Discord - dwaydewade, reddit - /u/Dwayde_Wade)
+* Also you can ask for new features.
 
 # Changes
 
@@ -48,5 +50,7 @@ This is modified version by /u/Dwayde_Wade. If you have any problems/issues plea
 * Fixed infinity loading
 * Apply upgrades chains
 
-Referral code in case you need that for registration: STAR-V5T3-P2HR
-If you like extension and want support me, here is donation link: https://www.paypal.com/donate/?hosted_button_id=FE4Z7JYPRN2DN
+# Support
+
+* Referral code in case you need that for registration: STAR-V5T3-P2HR
+* If you like extension and want support me, here is donation link: https://www.paypal.com/donate/?hosted_button_id=FE4Z7JYPRN2DN
