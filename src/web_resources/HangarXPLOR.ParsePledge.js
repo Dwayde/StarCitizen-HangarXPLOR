@@ -121,17 +121,14 @@ HangarXPLOR.ParsePledge = function()
       $wrapper.append($("<span>", { class: 'effect trans-opacity trans-03s giftable' }));
     }
     
-    $wrapper.append($("<div>", { class: 'date-col melt-col' }).append($('<label>', { text: 'Melt Value:  ' }), this.pledge_cost));
-    $wrapper.append($("<div>", { class: 'items-col pledge-col' }).append($('<label>', { text: 'Base Pledge:  ' }), this.pledge_name));
-
-    // Add uprades history
-    if (this.filters.is_ship && upgradedText !== undefined) {
-      $wrapper.append($("<a>", { class: "shadow-button trans-02s trans-color js-upgrade-log upgrade"}).append($('<span>', { class: "label js-label trans-02s", text: "Upgrades"})).append($('<span>', { class: "icon trans-02s"})).append($('<span>', { class: "effect trans-opacity trans-03s"})).append($('<span>', { class: "left-section"})).append($('<span>', { class: "right-section"})));
-    }
-
     this.sortName = this.displayName;
     h3Text.textContent = this.displayName;
     
+    // if ($('.basic-infos .image', this).css('background-image') == 'url("https://cdn.robertsspaceindustries.com/static/images/Temp/default-image.png")' &&
+    //     $('.items .image', this).length > 0)
+    // {
+    //     $('.basic-infos .image', this).css({ 'background-image': $($('.items .image', this)[0]).css('background-image') });
+    // }
     
   } else {
     HangarXPLOR.Log('Warning: Error parsing title', this.innerHTML);

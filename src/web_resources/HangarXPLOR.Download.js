@@ -51,8 +51,8 @@ HangarXPLOR._exportByName = HangarXPLOR._exportByName || {};
           }
         }
         
-        var ship = HangarXPLOR._exportByName[lookup] || {
-          unidentified: 'Please report this ship to the plugin developers at https://github.com/dolkensp/HangarXPLOR/issues',
+        var ship = HangarXPLOR._exportByName[lookup] ? { ...HangarXPLOR._exportByName[lookup] } : {
+          unidentified: 'Please report this ship to the plugin developers at https://github.com/dolkensp/HangarXPLOR/issues or https://github.com/Dwayde/StarCitizen-HangarXPLOR/issues',
           ship_code: ($('.liner span', $ship).text().trim() + '_' + ship_name).replace(/[^a-z0-9]/gi, '_').replace(/__+/gi, '_'),
           manufacturer_name: $('.liner', $ship).text().trim().replace(/\(.*\)/, '').trim(),
           lookup: lookup,
