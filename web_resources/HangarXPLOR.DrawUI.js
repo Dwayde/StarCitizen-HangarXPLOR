@@ -179,6 +179,7 @@ HangarXPLOR.DrawUI = function()
         <div class="js-custom-controls upgradechain-custom-controls">
           <input onchange="upgradechain_search_ship_func();" id="upgradechain_search_ship" class="js-custom-search upgradechain-custom-search" placeholder="Search ships"/>
         </div>
+        <p id="pledge_noresults" style="display: none;">No results found</p>
         <div class="scrollable fancy" style="height: 177px;">
           <div class="scrollbar" style="height: 177px;">
             <div class="track" style="height: 177px;">
@@ -238,6 +239,8 @@ HangarXPLOR.DrawUI = function()
         <div class="js-custom-controls upgradechain-custom-controls">
           <input onchange="upgradechain_search_ccu_func();" id="upgradechain_search_ccu" class="js-custom-search upgradechain-custom-search" placeholder="Search upgrades"/>
         </div>
+        <p id="showingall" class="warning" style="display: none;">ATTENTION! Showing all upgrades in hangar, because we can't find anything for this ship</p>
+        <p id="ccu_noresults" style="display: none;">No results found</p>
         <div class="scrollable fancy" style="height: 177px;">
           <div class="scrollbar" style="height: 177px;">
             <div class="track" style="height: 177px;">

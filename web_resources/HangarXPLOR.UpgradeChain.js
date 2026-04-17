@@ -23,6 +23,10 @@ function closeupgradechain() {
     document.getElementById("upgradechainapply").style.display = "none";
     document.getElementById("upgradechainnext").style.display = "none";
 
+    document.getElementById("showingall").style.display = "none";
+    document.getElementById("ccu_noresults").style.display = "none";
+    document.getElementById("pledge_noresults").style.display = "none";
+
     resetShip();
 
     resetCCU();
@@ -53,6 +57,11 @@ function upgradechainbackbut() {
 
     document.getElementById("upgradechain-step1").style.display = "block";
     document.getElementById("upgradechain-step2").style.display = "none";
+
+    document.getElementById("showingall").style.display = "none";
+    document.getElementById("ccu_noresults").style.display = "none";
+    document.getElementById("pledge_noresults").style.display = "none";
+    
 }
 
 async function upgradechainapplybut() {
@@ -174,6 +183,8 @@ function upgradechain_search_ship_func() {
     ship_search_input = ship_search_input.toLowerCase();
 
     var all_elems = document.getElementsByClassName("upgradechain-pledge-row")
+
+    var show = 0;
     
     for(var i = 0; i < all_elems.length; i++) {
         const t_ar = all_elems[i].id.split("-");
@@ -184,10 +195,17 @@ function upgradechain_search_ship_func() {
 
         if(fullname.includes(ship_search_input)) {
             all_elems[i].style.display = "block";
+            show++;
         } else {
             all_elems[i].style.display = "none";
         }
 
+    }
+
+    if(show === 0) {
+        document.getElementById("pledge_noresults").style.display = "block";
+    } else {
+        document.getElementById("pledge_noresults").style.display = "none";
     }
 
 
@@ -207,7 +225,7 @@ function upgradechain_search_ccu_func() {
 
     document.getElementById("upgradechain_selected_ccu").value = "";
 
-    var ccu_search_input = String(document.getElementById("upgradechain_search_ccu").value);
+    var ccu_search_input = String(document.getElementById("upgradechain_search_ccu").value).trim();
 
     ccu_search_input = ccu_search_input.toLowerCase();
 
@@ -216,6 +234,8 @@ function upgradechain_search_ccu_func() {
     selected_ship = selected_ship.toString().toLowerCase();
 
     var all_ccus = document.getElementsByClassName("upgradechain-ccu-row")
+
+    var show = 0
     
     for(var i = 0; i < all_ccus.length; i++) {
         const t_ar = all_ccus[i].id.split("-");
@@ -226,13 +246,58 @@ function upgradechain_search_ccu_func() {
 
         fullname = fullname.toLowerCase();
 
-        if(!item_ship_from.toString().toLowerCase().includes(selected_ship.toString())  || !fullname.includes(ccu_search_input)) {
-            all_ccus[i].style.display = "none";
-        }
-        if(item_ship_from.toString().toLowerCase().includes(selected_ship.toString()) && fullname.includes(ccu_search_input)) {
-            all_ccus[i].style.display = "block";
+        if(ccu_search_input === "") {
+            if(item_ship_from.toString().toLowerCase().includes(selected_ship)) {
+                all_ccus[i].style.display = "block";
+                show++;
+            } else {
+                all_ccus[i].style.display = "none";
+            }
+        } else {
+            if(!item_ship_from.toString().toLowerCase().includes(selected_ship)  || !fullname.includes(ccu_search_input)) {
+                all_ccus[i].style.display = "none";
+            }
+            if(item_ship_from.toString().toLowerCase().includes(selected_ship) && fullname.includes(ccu_search_input)) {
+                all_ccus[i].style.display = "block";
+                show++;
+            }
         }
 
+    }
+
+    if(show === 0) { 
+
+        var all_ccus = document.getElementsByClassName("upgradechain-ccu-row");
+
+        for(var i = 0; i < all_ccus.length; i++) {
+
+            const t_ar = all_ccus[i].id.split("-");
+            var id = t_ar[2];
+            var fullname = String(document.getElementById("upgradechain_ccu_span_" + id.toString()).innerHTML);
+
+            var item_ship_from = document.getElementById("upgradechain_ship_from_" + id.toString()).value;
+
+            fullname = fullname.toLowerCase();
+
+            if(fullname.includes(ccu_search_input)) {
+                all_ccus[i].style.display = "block";
+                show++;
+            } else {
+                all_ccus[i].style.display = "none";
+            }
+            
+        }
+        
+        if(show !== 0) {
+            document.getElementById("showingall").style.display = "block";
+            document.getElementById("ccu_noresults").style.display = "none";
+        } else {
+            document.getElementById("showingall").style.display = "none";
+            document.getElementById("ccu_noresults").style.display = "block";
+        }
+    } else {
+        document.getElementById("showingall").style.display = "none";
+        document.getElementById("ccu_noresults").style.display = "none";
     }
 
     checkApplyAvailable();
@@ -322,6 +387,8 @@ function sortCCU(ship_from) {
     document.getElementById("upgradechain_search_ccu").value = '';
 
     var all_ccus = document.getElementsByClassName("upgradechain-ccu-row")
+
+    var show = 0;
     
     for(var i = 0; i < all_ccus.length; i++) {
         const t_ar = all_ccus[i].id.split("-");
@@ -332,8 +399,15 @@ function sortCCU(ship_from) {
             all_ccus[i].style.display = "none";
         } else {
             all_ccus[i].style.display = "block";
+            show++;
         }
 
+    }
+
+    if(show === 0) {
+        document.getElementById("ccu_noresults").style.display = "block";
+    } else {
+        document.getElementById("ccu_noresults").style.display = "none";
     }
 
 }
