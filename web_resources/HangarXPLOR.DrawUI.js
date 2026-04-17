@@ -88,6 +88,8 @@ HangarXPLOR.DrawUI = function()
 
   $controls3.append(HangarXPLOR.SearchBox());
 
+  // Upgrade chain
+  $('.sidenav').append(HangarXPLOR.Button('Apply upgrades', 'upgradechainbutton js-upgrade-chain', HangarXPLOR._callbacks.UpgradeChain));
 
   // Export json, csv of all pledges
   $('.sidenav').append(HangarXPLOR.Button('Pledges JSON', 'exportbuttonjson js-export-hangar', HangarXPLOR._callbacks.ExportHangarJSON));
@@ -127,7 +129,233 @@ HangarXPLOR.DrawUI = function()
       }
   });
 
-  document.getElementsByClassName('pledge-log js-pledge-log')[0].addEventListener('click', addLoadLogElement);
+  $('body').append($('<div>', { class: 'upgradechainblock s-overlay overlay modals apply-upgrade lightbox js-lightbox', id: 'upgradechainblock' } ) );
+
+  var upgradechainhtml = ``;
+  upgradechainhtml += 
+  `
+  <input type="hidden" id="upgradechain_refresh" value=0 />
+  <input type="hidden" id="upgradechain_selected_pledge_name" value="" />
+  <div class="shader js-shader" style="opacity: 1;"></div>
+  <div class="content js-content" style="display: block; margin-left: 8px; margin-top: 10px; opacity: 1;">
+  <div class="modal-wrapper " style="width: 624px;">
+  <div class="top-border">
+        <img src="https://cdn.robertsspaceindustries.com/static/images/modal_blue_line.png">
+        <div class="h-border"></div>
+    <div class="l-corner"></div>
+    <div class="r-corner"></div>
+  </div>
+  <div class="modal-inner">
+    <span onClick="closeupgradechain();" class="close trans-03s .trans-opacity"></span>
+    <div id="upgrade" class="inner-content" style="">
+  <h2><span class="icon"></span>APPLY CHAIN OF UPGRADEs</h2>
+  <div class="padder">
+    <div class="separator"></div>
+    <div class="clearfix">
+      <form id="upgradechaain-pledge" action="" method="POST" class="legacy-form">
+        <div class="upgradechain-errors error-message js-error-message"></div>
+        <div class="upgradechain-msg success-message js-success-message"></div>
+        <p class="head">You are about to create upgrade for your pledge. This will <span class="important">delete the upgrade from your account</span> and apply the upgrade to the selected pledge by replacing ship.</p>
+        
+        <p class="head">You can <span class="important">apply upgrades one after another to same pledge</span> or/and complete multiple upgrade chains one after another <span class="important">without requirment to reload page</span> each time.</p>
+       
+        <p class="warning">WARNING! This action is PERMANENT and cannot be undone.</p>
+        <div class="pane-selection">
+          <span>Selected pledge:</span>
+          <p id="upgradechain-selected-pledge" class="selected-pledge js-selected-pledge"></p>
+          <ul class="remove">
+          <p class="heading">Replace</p>
+                      <li><del id="upgradechain_ship_delete"></del></li>
+                    </ul>
+                    <ul class="add">
+          <p class="heading">With</p>
+                      <li><ins id="upgradechain_ship_result"></ins></li>
+                    </ul>
+        <div class="clear"></div>
+      </div>
+    <div class="panes" style="left: 0px;">
+        <div style="padding-top: 0px;" id="upgradechain-step1" class="pane step1">
+        <p>Please <span class="important">select</span> the pledge on which you want to apply the upgrades to:</p>
+        <div class="js-custom-controls upgradechain-custom-controls">
+          <input onchange="upgradechain_search_ship_func();" id="upgradechain_search_ship" class="js-custom-search upgradechain-custom-search" placeholder="Search ships"/>
+        </div>
+        <div class="scrollable fancy" style="height: 177px;">
+          <div class="scrollbar" style="height: 177px;">
+            <div class="track" style="height: 177px;">
+              <div class="thumb" style="top: 0px; height: 177px;">
+                <div class="end"></div>
+              </div>
+            </div>
+          </div>
+          <div class="viewport" style="overflow-y: visible; height: 177px;">
+            <div class="content" style="top: 0px;">
+              <div class="upgrade-pledge-rows">`;
+
+  
+  var items_buffer = HangarXPLOR._inventory;
+
+  for (var i = 0, j = HangarXPLOR._inventory.length; i < j; i++) { 
+    if(HangarXPLOR._inventory[i].filters.is_ship) {
+      var id = HangarXPLOR._inventory[i].pledge_id;
+      var name = HangarXPLOR._inventory[i].displayName;
+      name = replaceStrangeTxts(name);
+      let name_ar = name.split('[');
+      if(name_ar.length > 1) {
+        name = name_ar[0].trim();
+      }
+      var fullname = HangarXPLOR._inventory[i].pledge_name;
+      upgradechainhtml += `
+      <div id="upgrade-row-` + id + `" class="upgradechain-pledge-row row">
+        <label onClick="upgradechain_selectpledge(` + id + `);" for="upgrade-radio-` + id + `">
+          <input id="upgradechain_ship_` + id + `" type=hidden value="` + name + `"/>
+          <input id="upgrade-radio-`+ id + `" name="pledge_id" type="radio" value="` + id + `">
+          <span id="upgradechain_ship_span_` + id + `">` + fullname;
+        if(!fullname.includes(name)) {
+          upgradechainhtml += " Ship: " + name;
+        }
+        upgradechainhtml += " (#" + id + ")" + `</span>
+        </label>
+      </div>`;
+    }
+  }
+
+
+  upgradechainhtml += `   
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <span class="submit-wrapper js-next left disabled">
+          <span class="submit-hover trans-02s trans-opacity"></span>
+          <input style="display: none;" id="upgradechainnext" onClick="upgradechainnextbut();" type="button" value="NEXT" class="trans-02s trans-color trans-background">
+        </span>
+      </div>
+
+      <div style="padding-top: 0px;display: none;" id="upgradechain-step2" class="pane step2">
+
+        <p>Please <span class="important">select</span> the upgrade which you want to apply on selected pledge:</p>
+        <div class="js-custom-controls upgradechain-custom-controls">
+          <input onchange="upgradechain_search_ccu_func();" id="upgradechain_search_ccu" class="js-custom-search upgradechain-custom-search" placeholder="Search upgrades"/>
+        </div>
+        <div class="scrollable fancy" style="height: 177px;">
+          <div class="scrollbar" style="height: 177px;">
+            <div class="track" style="height: 177px;">
+              <div class="thumb" style="top: 0px; height: 177px;">
+                <div class="end"></div>
+              </div>
+            </div>
+          </div>
+          <div class="viewport" style="overflow-y: visible; height: 177px;">
+            <div class="content" style="top: 0px;">
+              <div class="upgrade-ccu-rows">`;
+
+  for (var i = 0, j = HangarXPLOR._inventory.length; i < j; i++) {
+
+    if(HangarXPLOR._inventory[i].filters.is_upgrade) {
+
+      var id = HangarXPLOR._inventory[i].pledge_id;
+      var name = HangarXPLOR._inventory[i].displayName;
+      var fullname = HangarXPLOR._inventory[i].pledge_name;
+
+      name = replaceStrangeTxts(name);
+
+      let t_ar = name.split("to");
+      var ship_from = t_ar[0].trim();
+      var ship_to = t_ar[1].trim();
+
+      upgradechainhtml += `
+      <div id="upgrade-ccurow-` + id + `" class="upgradechain-ccu-row row">
+        <label onClick="upgradechain_selectccu(` + id + `);" for="upgradeccu-radio-` + id + `">
+          <input id="upgradechain_ship_from_` + id + `" type=hidden value="` + ship_from + `"/>
+          <input id="upgradechain_ship_to_` + id + `" type=hidden value="` + ship_to + `"/>
+          <input id="upgradeccu-radio-`+ id + `" name="ccu_id" type="radio" value="` + id + `">
+          <span id="upgradechain_ccu_span_` + id + `">` + fullname + " (#" + id + ")" + `</span>
+        </label>
+      </div>`;
+    }
+
+  }
+
+
+
+
+ upgradechainhtml += `
+
+               </div>
+            </div>
+          </div>
+        </div>
+
+        <p>Type in your password to confirm:</p>
+        <span class="corner-wrapper">
+          <input onchange="upgradechainpasswordchanged();" type="password" id="upgradechain-password" value="" class="trans-02s trans-color trans-box-shadow">
+          <span class="corner corner-top-left"></span>
+          <span class="corner corner-top-right"></span>
+          <span class="corner corner-bottom-left"></span>
+          <span class="corner corner-bottom-right"></span>
+        </span>
+
+        
+        <span class="submit-wrapper js-back back left active">
+          <span class="submit-hover trans-02s trans-opacity"></span>
+          <input id="upgradechainback" onClick="upgradechainbackbut();" type="button" value="BACK" class="trans-02s trans-color trans-background">
+        </span>
+        <span class="submit-wrapper js-submit right disabled">
+          <span class="submit-hover trans-02s trans-opacity"></span>
+          <input type="hidden" id="upgradechain_selected_pledge" value="">
+          <input type="hidden" id="upgradechain_selected_ccu" value="">
+          <input id="upgradechainapply" style="display: none;" onClick="upgradechainapplybut();" type="button" value="APPLY" class="trans-02s trans-color trans-background">
+        </span>
+     </div>
+
+      
+    </div></form>
+  </div>
+    <div class="separator"></div>
+  </div>
+</div>
+      </div>
+  <div class="bottom-border">
+    <div class="h-border"></div>
+    <div class="l-corner"></div>
+    <div class="r-corner"></div>
+        <img src="https://cdn.robertsspaceindustries.com/static/images/modal_blue_line.png">
+      </div>
+</div>
+</div>
+  `;
+
+
+  document.getElementById("upgradechainblock").innerHTML = upgradechainhtml;
+
+  document.getElementById('upgradechain_search_ship').addEventListener('keyup', e => {
+      upgradechain_search_ship_func();
+  });
+
+  document.getElementById('upgradechain_search_ccu').addEventListener('keyup', e => {
+      upgradechain_search_ccu_func();
+  });
+
+  // Update chain button
+
+  /*$('<span>', { class: 'shadow-button trans-02s trans-color upgradechain', id: 'upgradechain'}).append(
+    $('<span>', { class: 'icon trans-02s' }),
+    $('<span>', { class: 'label js-label trans-02s', id: 'upgradechaintxt', value: 'upgradechain'}).text("Update chain"),
+    $('<span>', { class: 'left-section'}),
+    $('<span>', { class: 'right-section'})
+  ).insertAfter('.title').parent('.top');^/
+
+  /*var toprow = $('.top');
+  toprow.append(
+  $('<span>', { class: 'shadow-button trans-02s trans-color upgradechain', id: 'upgradechain'}).append(
+    $('<span>', { class: 'icon trans-02s' }),
+    $('<span>', { class: 'label js-label trans-02s', id: 'upgradechaintxt', value: 'upgradechain'}).text("Update chain"),
+    $('<span>', { class: 'left-section'}),
+    $('<span>', { class: 'right-section'})
+  ));*/
+
+
 
 
   HangarXPLOR.Render();
@@ -136,206 +364,17 @@ HangarXPLOR.DrawUI = function()
   HangarXPLOR.RefreshPager();
 }
 
-const addLoadLogElement = async () => {
-  await delay(3000);
-  var obj = document.getElementById('pledge-log');
-  var inHtml = obj.innerHTML;
-  var addButton = '<h2><span class="icon"></span>AUTOLOAD HANGAR LOG</h2><br><span class="loadalllogs shadow-button trans-02s trans-color" id="loadLogs"><span class="icon trans-02s"></span><span class="label js-label trans-02s">Load selected logs</span><span class="left-section"></span><span class="right-section"></span></span>&nbsp;&nbsp;<span id="pagestoloadtxt">Load pages <b>FROM</b>: &nbsp&nbsp;</span><input class="inputlogs trans-02s trans-color trans-box-shadow" type=number id=pagestoloadfrom value=1 /><span id="pagestoloadtxt2">&nbsp;&nbsp;<b>TO</b>: &nbsp&nbsp;</span><input class="inputlogs trans-02s trans-color trans-box-shadow" type=number id=pagestoloadto value=50 /><br>&nbsp;&nbsp;&nbsp;&nbsp;<span id="pagestoloadtxt3"><b>*</b><i>Strongly recommend to not load more than 50 pages at time! (or be ready to very long loading)</i></span>';
-  if(!inHtml.includes(addButton)) {
-     document.getElementById('pledge-log').innerHTML = addButton + inHtml;
-  }
-  document.getElementById('loadLogs').addEventListener('click', loadAllLogs);
 
-  document.getElementById('loadLogs').style.display = "";
-  //document.getElementsByClassName('pledge-log js-pledge-log')[0].removeEventListener('click', addLoadLogElement);
-};
+function replaceStrangeTxts(name) {
+  name = name.replace("- LTI", "");
+  name = name.replace("- IAE", "");
+  name = name.replace("- ILW", "");
+  name = name.replace("- 120m", "");
+  name = name.replace("- 24m", "");
+  name = name.replace("- 6m", "");
+  name = name.replace("- 10 Year", "");
+  name = name.replaceAll(".", "");
+  name = name.trim();
 
-
-async function loadAllLogs() {
-
-  //document.getElementsByClassName('scrollbar')[0].style.display = "none";
-  //document.getElementsByClassName('scrollbar')[0].disabled = true;
-  //document.getElementsByClassName('scrollbar')[0].remove();
-
-  //document.getElementById('loadLogs').style.display = "none";
-  //document.getElementById('pagestoloadtxt').style.display = "none";
-  //document.getElementById('pagestoloadtxt2').style.display = "none";
-  //document.getElementById('pagestoloadtxt3').style.display = "none";
-  //document.getElementById('pagestoloadfrom').style.display = "none";
-
-  document.getElementById("loadLogs").style.display = "none";
-  document.getElementById('pagestoloadtxt').style.display = "none";
-  document.getElementById('pagestoloadtxt2').style.display = "none";
-  //document.getElementById('pagestoloadtxt3').style.display = "none";
-  document.getElementById('pagestoloadfrom').style.display = "none";
-  document.getElementById('pagestoloadto').style.display = "none";
-
-  var pagestoloadto = Number(document.getElementById('pagestoloadto').value);
-  var pagestoloadfrom = Number(document.getElementById('pagestoloadfrom').value);
-
-  const area = document.getElementsByClassName('scrollable fancy')[0];
-
-  area.remove();
-
-  var element =  document.getElementById('logsArea');
-  if (typeof(element) != 'undefined' && element != null)  {    element.remove();  }
-
-  var element =  document.getElementById('exportlogs');
-  if (typeof(element) != 'undefined' && element != null)  {    element.remove();  }
-
-  var element =  document.getElementById('infototallogs');
-  if (typeof(element) != 'undefined' && element != null)  {    element.remove();  }
-
-  const parent = document.getElementById('pledge-log');
-  const padder = parent.querySelector('.padder');
-  const target = padder.querySelector('.separator');
-
-  const newEl = document.createElement('div')
-  newEl.id = 'logsArea';
-  newEl.classList.add('logsArea');
-  newEl.classList.add('scrollable');
-  newEl.classList.add('fancy');
-
-  newEl.style = "overflow-y: scroll;";
-
-  $('<span>', { class: 'exportlogs shadow-button trans-02s trans-color', id: 'exportlogs'}).append(
-    $('<span>', { class: 'icon trans-02s' }),
-    $('<span>', { class: 'label js-label trans-02s'}).text("Export csv"),
-    $('<span>', { class: 'left-section'}),
-    $('<span>', { class: 'right-section'})
-  ).insertAfter('.head').parent('.padder').parent('#pledge-log');
-
-  document.getElementById('exportlogs').addEventListener('click', exportlogs);
-  document.getElementById('exportlogs').style.display = "none";
-
-    $('<span>', { class: 'infototallogs', id: 'infototallogs'}).append(
-  ).insertAfter('.exportlogs').parent('.padder').parent('#pledge-log');
-
-  target.after(newEl);
-
-  var pageTotal = 1;
-  var responsePages = 1;
-
-  await fetch("https://robertsspaceindustries.com/api/account/pledgeLog?page=1", {
-    method: 'POST',
-    headers: new Headers({
-        "Authorization": localStorage.getItem('token'),
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Accept": "application/json",
-        "X-Requested-With": "XMLHttpRequest",
-        "cookie": document.cookie,
-        "X-Rsi-Token": getRsiToken()
-    }),
-  }).then((response) => response.json()).then(responseData => { 
-    pageTotal = responseData['data']['pagecount'];
-    responsePages = pageTotal;
-
-  }).catch(error => {console.log(error);})
-
-  if(pagestoloadto > pageTotal) {
-      document.getElementById('pagestoloadto').value = pageTotal;
-      pagestoloadto = pageTotal;
-  } else {
-      pageTotal = pagestoloadto;
-  }
-
-  if(pagestoloadfrom < 1) { pagestoloadfrom = 1; document.getElementById('pagestoloadfrom').value = 1 }
-  var startpage = pagestoloadfrom;
-
-  var totalpages = 1;
-  document.getElementById('infototallogs').innerHTML = "&nbsp;&nbsp;<br>Total loaded (<b>"+startpage+"-"+pageTotal+" of " + responsePages + "</b> pages):<b> " + totalpages + "/" + (pageTotal - startpage + 1) + "</b> pages (<font color=#00f0ff><b>Starting...</b></font>)";
-
-  for (var logpage = startpage; logpage <= pageTotal; logpage++) {
-    console.log("Log page " + logpage + " loading!");
-    await getLogPage(logpage);
-    console.log("Log page " + logpage + " loaded!");
-    document.getElementById('infototallogs').innerHTML = "&nbsp;&nbsp;<br>Total loaded (<b>"+startpage+"-"+pageTotal+" of " + responsePages + "</b> pages):<b> " + totalpages + "/" + (pageTotal - startpage + 1)  + "</b> pages (<font color=orange><b>Loading...</b></font>)";
-    totalpages++;
-  }
-  document.getElementById('exportlogs').style.display = "";
-  document.getElementById('infototallogs').innerHTML = "&nbsp;&nbsp;<br>Total loaded (<b>"+startpage+"-"+pageTotal+" of " + responsePages + "</b> pages):<b> " + (totalpages - 1) + "/" + (pageTotal - startpage + 1)  + "</b> pages (<font color=#0f0><b>Completed</b></font>)";
-
-
-  document.getElementById("loadLogs").style.display = "";
-  document.getElementById('pagestoloadtxt').style.display = "";
-  document.getElementById('pagestoloadtxt2').style.display = "";
-  //document.getElementById('pagestoloadtxt3').style.display = "";
-  document.getElementById('pagestoloadfrom').style.display = "";
-  document.getElementById('pagestoloadto').style.display = "";
-
+  return name;
 }
-
-async function getLogPage(page) {
-
-   await fetch("https://robertsspaceindustries.com/api/account/pledgeLog?page="+page, {
-    method: 'POST',
-    headers: new Headers({
-        "Authorization": localStorage.getItem('token'),
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Accept": "application/json",
-        "X-Requested-With": "XMLHttpRequest",
-        "cookie": document.cookie,
-        "X-Rsi-Token": getRsiToken()
-    }),
-  }).then((response) => response.json()).then(responseData => { 
-    var text = responseData['data']['rendered'];
-    document.getElementById('logsArea').innerHTML += text;
-  }).catch(error => {console.log(error);})
-
-
-}
-
-
-function exportlogs() {
-
-    var $download = $('<a />');
-    $download.hide();
-    $(document.body).append($download);
-
-    var d = new Date,
-    formatedCurDate = [(d.getFullYear()),
-               d.getMonth() + 1,
-               d.getDate()].join('-') + '_' +
-              [d.getHours(),
-               d.getMinutes(),
-               d.getSeconds()].join('-');
-
-
-    var buffer = "";
-    buffer = buffer + removeTags(document.getElementById('logsArea').innerHTML);
-
-    $download.attr('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(buffer));
-    $download.attr('download', 'logs_' + formatedCurDate + '.csv');
-    $download.attr('type', 'text/csv');
-    $download[0].click();
-}
-
-function getRsiToken() {
-    var theCookies = document.cookie.split(';');
-    for (var i = 1 ; i <= theCookies.length; i++) {
-        if(theCookies[i-1].includes('Rsi-Token')) {
-          return theCookies[i-1].split("=")[1];
-        }
-    }
-    return '';
-}
-
-function removeTags(str) {
-	if ((str === null) || (str === ''))
-		return false;
-	else
-		str = str.toString();
-
-	// Regular expression to identify HTML tags in
-	// the input string. Replacing the identified
-	// HTML tag with a null string.
-	return str.replace(/(<([^>]+)>)/ig, '');
-}
-
-
-
-addEventListener("wheel", (event) => { 
-  if(document.getElementsByClassName('scrollbar').length > 1) {
-    document.getElementsByClassName('scrollbar')[1].remove();
-  }
- });

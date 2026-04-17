@@ -1,3 +1,5 @@
+var delaytime = 10001; //10 second
+
 
 var HangarXPLOR = HangarXPLOR || {};
 
@@ -20,9 +22,20 @@ HangarXPLOR.LoadBuybackPage = function(pageNo) {
     },
     error: function(xhr, status, error) {
       HangarXPLOR.Log('Error loading buyback page', pageNo, status, error);
+
+      console.log('Error loading buyback page ' + pageNo + ' of your hangar, probably anti-spam, if you have large hangar!');
+
+      console.log('No worries we will try again in ' + ((delaytime - 1)/1000) + ' seconds!');
+      document.getElementById("loading").innerHTML += "<br>Anti-spam, retrying...";
+      
+      // Auto try again
+      setTimeout(function() {
+        HangarXPLOR.LoadBuybackPage(pageNo);
+      }, delaytime);
+      
       // Still try to render what we have
-      HangarXPLOR.SaveBuybackCache();
-      HangarXPLOR.DrawBuybackUI();
+      //HangarXPLOR.SaveBuybackCache();
+      //HangarXPLOR.DrawBuybackUI();
     }
   });
 };

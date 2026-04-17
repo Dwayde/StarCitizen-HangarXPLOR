@@ -2,7 +2,7 @@
   "description": "This extension improves the Hangar page on RSI page. Adds filters,search and many other improvements. (modified by /u/Dwayde_Wade)",
   "name": "Star Citizen Hangar XPLORer (Dwayde's mod)",
   "short_name": "HangarXPLOR",
-  "version": "6.7.2",
+  "version": "7.0.1",
   "author": "/u/alluran (Peter Dolkens)",
   "icons": {
     "128": "icons/icon_128.png"
@@ -85,7 +85,7 @@
               "web_resources/HangarXPLOR.Debug.js",
               "web_resources/HangarXPLOR.js",
               "web_resources/HangarXPLOR.css",
-            "web_resources/HangarXPLOR.ParseBuybackPledge.js",
+              "web_resources/HangarXPLOR.ParseBuybackPledge.js",
               "web_resources/HangarXPLOR.LoadBuybackPage.js",
               "web_resources/HangarXPLOR.ProcessBuybackPage.js",
               "web_resources/HangarXPLOR.LoadBuybackCache.js",
@@ -94,6 +94,9 @@
               "web_resources/HangarXPLOR.RenderBuyback.js",
               "web_resources/HangarXPLOR.DrawBuybackUI.js",
               "web_resources/HangarXPLOR.BuybackBulkUI.js",
+              "web_resources/HangarXPLOR.Logs.js",
+              "web_resources/HangarXPLOR.UpgradeChain.js",
+              "web_resources/HangarXPLOR.UpgradeChain.html",
               "debug/*.html"
           ]
       }

@@ -53,6 +53,8 @@
     'web_resources/HangarXPLOR.ProcessBuybackPage.js',
     'web_resources/HangarXPLOR.LoadBuybackPage.js',
     'web_resources/HangarXPLOR.ParseBuybackPledge.js',
+    'web_resources/HangarXPLOR.Logs.js',
+    'web_resources/HangarXPLOR.UpgradeChain.js',
     'web_resources/shims.chrome.storage.js'
   ];
   
@@ -60,11 +62,15 @@
     'web_resources/ship-codes.json'
   ];
   
-  var templates = [ ];
+  var templates = [ 
+  ];
+
+  /*var iframes = [
+  ]*/
   
   for (var i = 0, j = styles.length; i < j; i++) {
     var styleURL = chrome.runtime.getURL(styles[i]);
-    console.log('Loading', styleURL);
+    console.log('Loading style', styleURL);
     var style = document.createElement('link');
     style.id = namespace + '-css-' + i;
     style.type = 'text/css';
@@ -75,13 +81,22 @@
   
   for (i = 0, j = templates.length; i < j; i++) {
     var templateURL = chrome.runtime.getURL(templates[i].url);
-    console.log('Loading', templateURL);
+    console.log('Loading template', templateURL);
     var template = document.createElement('script');
-    template.id = templates[i].id;
+    template.id = templates[i].id + "-script";
     template.type = 'text/x-jsmart-tmpl';
     template.src = templateURL;
     document.body.appendChild(template);
   }
+
+ /*for (i = 0, j = iframes.length; i < j; i++) {
+    var iframeURL = chrome.runtime.getURL(iframes[i].url);
+    console.log('Loading iframe', iframeURL);
+    var iframe = document.createElement('iframe');
+    iframe.id = iframes[i].id;
+    iframe.src = templateURL;
+    document.body.appendChild(iframe);
+  }*/
   
   window.addEventListener('message', function(event) {
     if (event.source != window) return;
@@ -103,7 +118,7 @@
   
   for (i = 0, j = ajax.length; i < j; i++) {
     var ajaxURL = chrome.runtime.getURL(ajax[i]);
-    console.log('Loading', ajaxURL);
+    console.log('Loading ajax', ajaxURL);
     var script = document.createElement('script');
     script.id = (namespace + '-ajax-' + ajax[i++]).replace('web_resources/', '').replace(/[. ]/, '-');
     script.type = 'text/x-ajax-url';
@@ -117,7 +132,7 @@
     if (scripts.length == 0) return;
     
     var scriptURL = chrome.runtime.getURL(scripts.pop());
-    console.log('Loading', scriptURL);
+    console.log('Loading script', scriptURL);
     var script = document.createElement('script');
     script.id = namespace + '-js-' + i++;
     script.type = 'text/javascript';
@@ -131,5 +146,5 @@
     document.body.appendChild(script);
   };
   
-  loadScript();  
+  loadScript(); 
 }()
