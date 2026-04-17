@@ -48,4 +48,5 @@ This is modified version by /u/Dwayde_Wade. If you have any problems/issues plea
 * Fixed infinity loading
 * Apply upgrades chains
 
+Referral code in case you need that for registration: STAR-V5T3-P2HR
 If you like extension and want support me, here is donation link: https://www.paypal.com/donate/?hosted_button_id=FE4Z7JYPRN2DN
