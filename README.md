@@ -47,4 +47,5 @@ This is modified version by /u/Dwayde_Wade. If you have any problems/issues plea
 * Export hangar logs in CSV format
 * Fixed infinity loading
 * Apply upgrades chains
-* If you like extension and want support me, here is donation link: https://www.paypal.com/donate/?hosted_button_id=FE4Z7JYPRN2DN
+
+If you like extension and want support me, here is donation link: https://www.paypal.com/donate/?hosted_button_id=FE4Z7JYPRN2DN
