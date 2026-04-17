@@ -41,7 +41,7 @@ HangarXPLOR.BulkUI = function()
   HangarXPLOR.$bulkUI.$value = $('<div>', { class: 'value' });
   HangarXPLOR.$bulkUI.$actions = $('<div>', { class: 'actions' });
   HangarXPLOR.$bulkUI.$downloads = $('<div>', { class: 'actions' });
-  HangarXPLOR.$bulkUI.$loading = $('<div>', { class: 'status value' });
+  HangarXPLOR.$bulkUI.$loading = $('<div>', { id: 'loadingstatus', class: 'status value' });
   
   HangarXPLOR.$bulkUI.addClass(HangarXPLOR._feature.Summary);
   
@@ -60,6 +60,7 @@ HangarXPLOR.BulkUI = function()
   HangarXPLOR.$bulkUI.$downloads.append(HangarXPLOR.Button('Ships CSV', 'download js-download-csv', HangarXPLOR._callbacks.DownloadCSV));
   HangarXPLOR.$bulkUI.$downloads.append(HangarXPLOR.Button('Ships JSON', 'download js-download-json', HangarXPLOR._callbacks.DownloadJSON));
 
+  
   bulkHeight = $('.js-bulk-ui').height();
   positionUI();
 }
@@ -67,16 +68,15 @@ HangarXPLOR.BulkUI = function()
 HangarXPLOR.BindBulkUI = function()
 {
 
-  HangarXPLOR.$bulkUI.$inner.removeClass('loading');
+  HangarXPLOR.$bulkUI.$inner.removeClass('loading').addClass('still-loading');;
   HangarXPLOR.$list.addClass(HangarXPLOR._feature.Summary);
   HangarXPLOR.$list.on('click.HangarXPLOR', 'a', function(e) { e.originalEvent.isButton = true; });
   HangarXPLOR.$list.on('click.HangarXPLOR', 'li', function(e) {
     if (!e.originalEvent.isButton)
     {
-      $('.row', this).removeClass('js-selected');
+      const $row = $('.row', this);
       this.filters.is_selected = !this.filters.is_selected;
-      if (this.filters.is_selected) $('.row', this).addClass('js-selected');
-      
+      $row.toggleClass('js-selected', this.filters.is_selected);
       HangarXPLOR.RefreshBulkUI();
     }
   });
@@ -127,6 +127,12 @@ HangarXPLOR.UpdateStatus = function(pageNo)
     $('<span>', { class: 'loading', text: 'Preparing...', id: 'loading' }),
     $('<br>')
   );
+}
+
+HangarXPLOR.MarkLoadingComplete = function()
+{
+  HangarXPLOR.$bulkUI.$loading.empty();
+  HangarXPLOR.$bulkUI.$inner.removeClass('still-loading');
 }
 
 HangarXPLOR.RefreshBulkUI = function()
@@ -203,6 +209,22 @@ HangarXPLOR.RefreshBulkUI = function()
   if (HangarXPLOR.BulkEnabled && HangarXPLOR._giftable.length > 0) HangarXPLOR.$bulkUI.$actions.append(HangarXPLOR.Button('Gift ' + HangarXPLOR._giftable.length + ' Items', 'gift js-bulk-gift', HangarXPLOR._callbacks.Gift));
   
 }
+
+// React to summary mode changes relayed from the settings popup via loader.js
+window.addEventListener('message', function(event) {
+  if (event.source !== window) return;
+  if (event.data.type !== 'feature.summary.changed') return;
+  var value = event.data.value;
+  if (value !== 'cash' && value !== 'count') return;
+  if (!HangarXPLOR.$bulkUI) return;
+
+  HangarXPLOR.$bulkUI.removeClass('cash count');
+  HangarXPLOR.$list && HangarXPLOR.$list.removeClass('cash count');
+  HangarXPLOR._feature.Summary = value;
+  HangarXPLOR.$bulkUI.addClass(value);
+  HangarXPLOR.$list && HangarXPLOR.$list.addClass(value);
+  HangarXPLOR.RefreshBulkUI();
+});
 
 HangarXPLOR.ResetBulkUI = function()
 {

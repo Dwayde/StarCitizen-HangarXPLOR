@@ -121,7 +121,7 @@ HangarXPLOR.DrawUI = function()
           settings._cacheSalt  = btoa(Math.random());
 
           chrome.storage.sync.set(settings, () => {
-            //chrome.tabs.reload(details.tabId);
+            chrome.tabs.reload();
             window.close();
           });
       });
