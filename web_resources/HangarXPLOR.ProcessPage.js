@@ -59,6 +59,7 @@ HangarXPLOR.ProcessPage = function($page, pageNo)
     HangarXPLOR.Render();
     HangarXPLOR.RefreshBulkUI();
     HangarXPLOR.RefreshPager();
+    updateApplyUpgradesUI();
   }   
 
   if (isEmpty || $items.length < 10) {
