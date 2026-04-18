@@ -1,4 +1,4 @@
-# Star Citizen HangarXPLOR Modified
+# HangarXPLOR [![Build status](https://ci.appveyor.com/api/projects/status/7j87vur0plpw74vx/branch/release?svg=true)](https://ci.appveyor.com/project/dolkensp/hangarxplor/branch/release)
 
 This project aims to improved the default Hangar page at https://robertsspaceindustries.com/account/pledges.
 
@@ -14,43 +14,63 @@ Current features include:
 * Cache your hangar for faster load times
 * Export your ships in [Hangar Transfer Format](https://docs.starcitizen.fans/) for use with other apps
 * Export your ships in CSV format
-* Pre-load ALL hangar logs pages
-* Export hangar logs to csv
-* Pre-load all buyback pages
-* Search and filter possibility on buyback page
-* Export csv/json of buybacks
-* Apply upgrades chain
 
-Bulk melt and gift Add-On: [XPLOR BULK](https://github.com/Dwayde/StarCitizen-HangarXPLOR-Bulk).
+## Browser Support 
 
-# Browser Support 
+* [Google Chrome Extension](https://chrome.google.com/webstore/detail/hangarxplor/bhkgemjdepodofcnmekdobmmbifemhkc/)
+* [Firefox Add-On](https://addons.mozilla.org/en-US/firefox/addon/star-citizen-hangar-xplorer/)
+* [Opera Add-On](https://addons.opera.com/en-gb/extensions/details/star-citizen-hangar-xplorer/)
+* Edge - On Hold
+* Safari - See below for manual build instructions
 
-* [Google Chrome Extension]
-* [Firefox Add-On]
+## Building for Safari
 
+Safari Web Extensions must be wrapped in a native macOS app using Xcode. Requirements:
+- macOS with Xcode installed (not just the Command Line Tools)
+- Safari 16.4 or later
 
-# Modified
+**Steps:**
 
-* This is modified version by /u/Dwayde_Wade. 
-* If you have any problems/issues please feel free to contact me. (Discord - dwaydewade, reddit - /u/Dwayde_Wade)
-* Also you can ask for new features.
+1. Ensure `xcode-select` points at Xcode.app, not the standalone Command Line Tools (required for `safari-web-extension-converter` to be found):
+   ```
+   sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+   ```
 
-# Changes
+2. Build the extension (replace `1.0.0.0` with the desired version):
+   ```
+   npm install
+   node build.js 1.0.0.0
+   ```
 
-* Fix for extra large hangars
-* Working with new website
-* UI and design fixes (selected items, filters, melt value, gift-able pledges and more...)
-* New filter for selected items
-* Reload hangar button (clear cache possibility)
-* Export your all pledges in CSV and JSON format
-* Search and filter buyback
-* Export buybacks in CSV and JSON format
-* Preload hangar logs
-* Export hangar logs in CSV format
-* Fixed infinity loading
-* Apply upgrades chains
+3. Convert the output directory to an Xcode project:
+   ```
+   xcrun safari-web-extension-converter dist/HangarXPLOR-safari-v1.0.0.0 \
+     --project-location dist \
+     --app-name HangarXPLOR-Safari \
+     --bundle-identifier com.hangarxplor.safari
+   ```
 
-# Support
+4. Build the Xcode project from the command line. Note: the scheme name includes a platform suffix — use the macOS one:
+   ```
+   xcodebuild -project dist/HangarXPLOR-Safari/HangarXPLOR-Safari.xcodeproj \
+     -scheme "HangarXPLOR-Safari (macOS)" \
+     -configuration Debug \
+     -destination 'platform=macOS' \
+     build
+   ```
+   If you're unsure of the scheme names for a given project, you can list them with:
+   ```
+   xcodebuild -project dist/HangarXPLOR-Safari/HangarXPLOR-Safari.xcodeproj -list
+   ```
 
-* Referral code in case you need that for registration: STAR-V5T3-P2HR
-* If you like extension and want support me, here is donation link: https://www.paypal.com/donate/?hosted_button_id=FE4Z7JYPRN2DN
+5. Open the built `.app` from `~/Library/Developer/Xcode/DerivedData/` to register the extension with Safari.
+
+6. Enable unsigned extensions in Safari. This must be repeated each time Safari is relaunched:
+   - Go to **Safari → Settings → Advanced** and enable **"Show features for web developers"**
+   - In the **Develop** menu that appears in the menu bar, click **"Allow Unsigned Extensions"** and enter your password when prompted
+
+7. In Safari, go to **Safari → Settings → Extensions**, enable HangarXPLOR, and grant permission for `robertsspaceindustries.com`.
+
+# Screenshots
+
+![New and improved UI](https://i.imgur.com/RNndHdv.png "New and improved UI")
