@@ -28,11 +28,11 @@ HangarXPLOR.RenderBuyback = function() {
   sortBy = '.' + sortBy;
   searchBy = '#buybackSearchInput';  // Use ID for buyback search to avoid conflict with hangar
 
-  var buffer = HangarXPLOR._buybackInventory;
+  var bbbuffer = HangarXPLOR._buybackInventory;
 
   // Apply filters
   $(filterBy).each(function() {
-    buffer = HangarXPLOR.FilterBuyback(buffer, $(this).val());
+    bbbuffer = HangarXPLOR.FilterBuyback(bbbuffer, $(this).val());
   });
 
   // Apply search
@@ -40,7 +40,7 @@ HangarXPLOR.RenderBuyback = function() {
     var searchTerm = $(this).val();
     if (searchTerm && searchTerm.trim().length > 0) {
       HangarXPLOR._buybackSearchTerm = searchTerm.toLowerCase();
-      buffer = $.grep(buffer, function(item) {
+      bbbuffer = $.grep(bbbuffer, function(item) {
         return item.buyback_name.toLowerCase().indexOf(HangarXPLOR._buybackSearchTerm) > -1 ||
                item.buyback_type.toLowerCase().indexOf(HangarXPLOR._buybackSearchTerm) > -1 ||
                item.contained.toLowerCase().indexOf(HangarXPLOR._buybackSearchTerm) > -1;
@@ -50,28 +50,28 @@ HangarXPLOR.RenderBuyback = function() {
 
   // Apply sort
   $(sortBy).each(function() {
-    buffer = HangarXPLOR.SortBuyback(buffer, $(this).val());
+    bbbuffer = HangarXPLOR.SortBuyback(bbbuffer, $(this).val());
   });
 
-  HangarXPLOR._buybackFiltered = buffer;
+  HangarXPLOR._buybackFiltered = bbbuffer;
 
   // User performed search & no results
   if (
     HangarXPLOR._buybackInventory.length > 0 &&
-    buffer.length === 0 &&
+    bbbuffer.length === 0 &&
     HangarXPLOR._buybackSearchTerm.length !== 0
   ) {
     var $noResults = $('<li>').append(
       $('<h4>', { class: 'empty-list', text: 'Your search returned no results.' })
     );
-    buffer = [$noResults[0]];
+    bbbuffer = [$noResults[0]];
   }
   // Empty Buffer
-  else if (buffer.length == 0) {
+  else if (bbbuffer.length == 0) {
     var $empty = $('<li>').append(
       $('<h4>', { class: 'empty-list', text: 'Your buyback queue is empty.' })
     );
-    buffer = [$empty[0]];
+    bbbuffer = [$empty[0]];
   }
 
   HangarXPLOR._buybackTotalRecords = buffer.length;
@@ -81,14 +81,14 @@ HangarXPLOR.RenderBuyback = function() {
 
   // Apply pagination
   if (HangarXPLOR._buybackPageCount < 1000) {
-    buffer = buffer.slice(
+    bbbuffer = bbbuffer.slice(
       (HangarXPLOR._buybackPageNo - 1) * HangarXPLOR._buybackPageCount,
       HangarXPLOR._buybackPageNo * HangarXPLOR._buybackPageCount
     );
   }
 
   HangarXPLOR.$list.empty();
-  HangarXPLOR.$list.append(buffer);
+  HangarXPLOR.$list.append(bbbuffer);
 
   // Update pager display (uses callback system defined in DrawBuybackUI.js)
   HangarXPLOR.RefreshBuybackPager();

@@ -6,8 +6,8 @@ HangarXPLOR.SearchBox = function()
 {
   HangarXPLOR.Log('Rendering SearchBox');
 
-  const $searchBox = $('<input>', { id: 'searchInput', class: 'js-custom-search', placeholder: 'Search' });
-  const $searchBoxMirror = $('<input>', { class: 'js-custom-search-complete', disabled: 'disabled' });
+  const $searchBox = $('<input>', { id: 'searchInput', class: 'js-custom-search', placeholder: 'Search', autocomplete: "off" });
+  const $searchBoxMirror = $('<input>', { class: 'js-custom-search-finish', disabled: true, autocomplete: "off" });
 
   $searchBox.keyup(function() {
       HangarXPLOR.Render();

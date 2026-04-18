@@ -11,8 +11,6 @@ HangarXPLOR.ProcessPage = function($page, pageNo)
   
   var $items = $('.list-items > li', $page);
 
-
-
   // Detect duplicate pages: RSI returns the last page's results for any
   // page number beyond the actual last page instead of an empty list.
   var isDuplicate = false;
@@ -20,6 +18,7 @@ HangarXPLOR.ProcessPage = function($page, pageNo)
     var firstId = $('.js-pledge-id', $items.first()).val();
     if (firstId && firstId === HangarXPLOR._lastFirstPledgeId) {
       isDuplicate = true;
+      console.log("Duplicate page");
     }
     HangarXPLOR._lastFirstPledgeId = firstId;
   }
@@ -48,6 +47,8 @@ HangarXPLOR.ProcessPage = function($page, pageNo)
     //console.log("Last page");
     isEmpty = true;
   }
+   
+  if (!isEmpty && !isDuplicate) $items.each(HangarXPLOR.ParsePledge);
 
   // Draw the UI shell on first page load so the user sees results immediately,
   // then just re-render on subsequent pages while the rest of the hangar loads.
@@ -58,16 +59,14 @@ HangarXPLOR.ProcessPage = function($page, pageNo)
     HangarXPLOR.Render();
     HangarXPLOR.RefreshBulkUI();
     HangarXPLOR.RefreshPager();
-  }
-      
-  if (!isEmpty && !isDuplicate) $items.each(HangarXPLOR.ParsePledge);
+  }   
 
   if (isEmpty || $items.length < 10) {
     HangarXPLOR.SaveCache();
     HangarXPLOR.MarkLoadingComplete();
   } else {
       //console.log("Page " + (pageNo) + " loading...");
-      HangarXPLOR.LoadPage(pageNo + 1);
+      HangarXPLOR.LoadPage(pageNo + 1, 0);
       //console.log("Page " + (pageNo) + " loaded!");
       document.getElementById("loadingstatus").textContent = "";
       if(lp == 0) {

@@ -168,10 +168,10 @@ function exportlogs() {
                d.getSeconds()].join('-');
 
 
-    var buffer = "";
-    buffer = buffer + removeTags(document.getElementById('logsArea').innerHTML);
+    var logbuffer = "";
+    logbuffer = logbuffer + removeTags(document.getElementById('logsArea').innerHTML);
 
-    $download.attr('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(buffer));
+    $download.attr('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(logbuffer));
     $download.attr('download', 'logs_' + formatedCurDate + '.csv');
     $download.attr('type', 'text/csv');
     $download[0].click();

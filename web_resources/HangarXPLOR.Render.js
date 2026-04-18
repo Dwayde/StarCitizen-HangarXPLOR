@@ -20,13 +20,14 @@ HangarXPLOR.Render = function()
 
   var buffer = HangarXPLOR._inventory;
 
+
+
   $(filterBy).each(function() { buffer = HangarXPLOR.Filter(buffer, $(this).val()); });
   $(searchBy).each(function() { buffer = HangarXPLOR.Search(buffer, $(this).val()); });
   $(sortBy).each(function() { buffer = HangarXPLOR.Sort(buffer, $(this).val()); });
   
   // Render suggestion box
-  $('.js-custom-search-complete').each(function() { $(this).val(HangarXPLOR.SearchSuggestion(buffer, HangarXPLOR._searchTerm)); });
-
+  $('.js-custom-search-finish').each(function() { $(this).val(HangarXPLOR.SearchSuggestion(buffer, HangarXPLOR._searchTerm)); });
   HangarXPLOR._filtered = buffer;
 
   //--- User performed search & no results
@@ -39,7 +40,7 @@ HangarXPLOR.Render = function()
   }
   //--- Empty Buffer
   else if (buffer.length == 0) {
-    buffer.push($('<h4>', { class: 'empy-list', text: 'Your hangar is empty.' }));
+    buffer.push($('<h4>', { class: 'empty-list', text: 'Your hangar is empty.' }));
   }
 
   HangarXPLOR._totalRecords = buffer.length;
