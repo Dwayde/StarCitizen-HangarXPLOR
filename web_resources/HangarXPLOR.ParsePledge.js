@@ -102,7 +102,7 @@ HangarXPLOR.ParsePledge = function()
     //this.displayName = this.displayName.replace(" Upgrade", "");
 
     var prefix = HangarXPLOR._setting.NoPrefix   ? '' : this.pledge_type + ' - ';
-    var suffix = HangarXPLOR._setting.NoPledgeID ? '' : ' (' + this.pledge_id + ')';
+    var suffix = HangarXPLOR._setting.NoPledgeID ? '' : ' (#' + this.pledge_id + ')';
     this.displayName = prefix + this.displayName + suffix;
 
     // HotFix for some ships appears as upgrade type

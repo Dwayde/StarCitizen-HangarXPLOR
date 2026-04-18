@@ -138,7 +138,7 @@ HangarXPLOR.DrawUI = function()
   <input type="hidden" id="upgradechain_selected_pledge_name" value="" />
   <div class="shader js-shader" style="opacity: 1;"></div>
   <div class="content js-content" style="display: block; margin-left: 8px; margin-top: 10px; opacity: 1;">
-  <div class="modal-wrapper " style="width: 624px;">
+  <div class="modal-wrapper" style="margin-top: 1% !important; width: 624px;">
   <div class="top-border">
         <img src="https://cdn.robertsspaceindustries.com/static/images/modal_blue_line.png">
         <div class="h-border"></div>
@@ -155,9 +155,9 @@ HangarXPLOR.DrawUI = function()
       <form id="upgradechaain-pledge" action="" method="POST" class="legacy-form">
         <div class="upgradechain-errors error-message js-error-message"></div>
         <div class="upgradechain-msg success-message js-success-message"></div>
-        <p class="head">You are about to create upgrade for your pledge. This will <span class="important">delete the upgrade from your account</span> and apply the upgrade to the selected pledge by replacing ship.</p>
-        
-        <p class="head">You can <span class="important">apply upgrades one after another to same pledge</span> or/and complete multiple upgrade chains one after another <span class="important">without requirment to reload page</span> each time.</p>
+
+        <p class="head">You are about to create upgrade for your pledge. This will <span class="important">delete the upgrade from your account</span> and apply the upgrade to the selected pledge by replacing ship.<br><br>
+        You can <span class="important">apply upgrades one after another to same pledge</span> or/and complete multiple upgrade chains one after another <span class="important">without requirment to reload page</span> each time.</p>
        
         <p class="warning">WARNING! This action is PERMANENT and cannot be undone.</p>
         <div class="pane-selection">
@@ -180,15 +180,15 @@ HangarXPLOR.DrawUI = function()
           <input onchange="upgradechain_search_ship_func();" id="upgradechain_search_ship" class="js-custom-search upgradechain-custom-search" placeholder="Search ships"/>
         </div>
         <p id="pledge_noresults" style="display: none;">No results found</p>
-        <div class="scrollable fancy" style="height: 177px;">
-          <div class="scrollbar" style="height: 177px;">
-            <div class="track" style="height: 177px;">
-              <div class="thumb" style="top: 0px; height: 177px;">
+        <div class="scrollable fancy" style="height: 150px;">
+          <div class="scrollbar" style="height: 150px;">
+            <div class="track" style="height: 150px;">
+              <div class="thumb" style="top: 0px; height: 150px;">
                 <div class="end"></div>
               </div>
             </div>
           </div>
-          <div class="viewport" style="overflow-y: visible; height: 177px;">
+          <div class="viewport" style="overflow-y: visible; height: 150px;">
             <div class="content" style="top: 0px;">
               <div class="upgrade-pledge-rows">`;
 
@@ -241,15 +241,15 @@ HangarXPLOR.DrawUI = function()
         </div>
         <p id="showingall" class="warning" style="display: none;">ATTENTION! Showing all upgrades in hangar, because we can't find anything for this ship</p>
         <p id="ccu_noresults" style="display: none;">No results found</p>
-        <div class="scrollable fancy" style="height: 177px;">
-          <div class="scrollbar" style="height: 177px;">
-            <div class="track" style="height: 177px;">
-              <div class="thumb" style="top: 0px; height: 177px;">
+        <div class="scrollable fancy" style="height: 150px;">
+          <div class="scrollbar" style="height: 150px;">
+            <div class="track" style="height: 150px;">
+              <div class="thumb" style="top: 0px; height: 150px;">
                 <div class="end"></div>
               </div>
             </div>
           </div>
-          <div class="viewport" style="overflow-y: visible; height: 177px;">
+          <div class="viewport" style="overflow-y: visible; height: 150px;">
             <div class="content" style="top: 0px;">
               <div class="upgrade-ccu-rows">`;
 
