@@ -15,9 +15,19 @@ const addLoadLogElement = async () => {
   //document.getElementsByClassName('pledge-log js-pledge-log')[0].removeEventListener('click', addLoadLogElement);
 };
 
-if(HangarXPLOR._pageType !== 'buyback') {
+if(HangarXPLOR._pageType === undefined) {
+  var page_type = window.location.pathname.includes('buy-back-pledges') ? 'buyback' : 'hangar';
+} else {
+  var page_type = HangarXPLOR._pageType;
+}
+
+if(page_type !== 'buyback') {
   window.addEventListener("load", (event) => {
+
+    if( document.getElementsByClassName('pledge-log js-pledge-log')[0]) {
       document.getElementsByClassName('pledge-log js-pledge-log')[0].addEventListener('click', addLoadLogElement);
+    }
+
   });
 }
 
