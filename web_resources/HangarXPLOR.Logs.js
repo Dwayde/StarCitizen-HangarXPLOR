@@ -12,6 +12,12 @@ const addLoadLogElement = async () => {
   //document.getElementsByClassName('pledge-log js-pledge-log')[0].removeEventListener('click', addLoadLogElement);
 };
 
+if(HangarXPLOR._pageType !== 'buyback') {
+  window.addEventListener("load", (event) => {
+      document.getElementsByClassName('pledge-log js-pledge-log')[0].addEventListener('click', addLoadLogElement);
+  });
+}
+
 
 
 async function loadAllLogs() {
