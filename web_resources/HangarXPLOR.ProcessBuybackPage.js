@@ -1,6 +1,8 @@
 
 var HangarXPLOR = HangarXPLOR || {};
 
+HangarXPLOR._BBuiDrawn = HangarXPLOR._BBuiDrawn || false;
+
 /**
  * Processes a loaded buyback page, parsing each pledge and handling pagination
  * @param {jQuery} $page - jQuery object containing the loaded page HTML
@@ -25,13 +27,22 @@ HangarXPLOR.ProcessBuybackPage = function($page, pageNo) {
     HangarXPLOR.ParseBuybackPledge.apply(this);
   });
 
+  if (!HangarXPLOR._BBuiDrawn) {
+    HangarXPLOR._BBuiDrawn = true;
+    HangarXPLOR.DrawBuybackUI();
+  } else {
+    HangarXPLOR.RenderBuyback();
+    HangarXPLOR.RefreshBuybackBulkUI();
+    HangarXPLOR.RefreshBuybackPager();
+  }  
+
   // Continue loading if we got a full page (50 items)
   // This indicates there may be more pages
   if ($items.length >= 50) {
-    HangarXPLOR.LoadBuybackPage(pageNo + 1);
+    HangarXPLOR.LoadBuybackPage(pageNo + 1, 0);
   } else {
     HangarXPLOR.Log('Buyback loading complete. Total items:', HangarXPLOR._buybackInventory.length);
     HangarXPLOR.SaveBuybackCache();
-    HangarXPLOR.DrawBuybackUI();
+    HangarXPLOR.MarkBBLoadingComplete();
   }
 };

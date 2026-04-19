@@ -8,8 +8,14 @@ HangarXPLOR.Search = function(list, term)
 {
 
   // Fixs autocomplete from Opera GX and such browsers for search sugestions
-  if(term != document.getElementById("searchInput").value) {
-    term = document.getElementById("searchInput").value;
+  if(HangarXPLOR._pageType === 'buyback') {
+      if(term != document.getElementById("buybackSearchInput").value) {
+      term = document.getElementById("buybackSearchInput").value;
+    }
+  } else {
+    if(term != document.getElementById("searchInput").value) {
+      term = document.getElementById("searchInput").value;
+    }
   }
 
   HangarXPLOR._searchTerm = term;
@@ -40,6 +46,6 @@ HangarXPLOR.Search = function(list, term)
 }
 
 HangarXPLOR.SearchSuggestion = function(list, term) {
-
+  
   return term + HangarXPLOR._suggestion.substr(HangarXPLOR._suggestion.toLowerCase().indexOf(term.toLowerCase()) + term.length);
 }

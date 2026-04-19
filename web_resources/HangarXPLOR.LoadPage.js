@@ -19,7 +19,7 @@ HangarXPLOR.LoadPage = function(pageNo, retryCount)
       return HangarXPLOR.ProcessPage(document.body, pageNo);
   
   HangarXPLOR.Log('Loading', url);
-
+ 
   var doLoad = function() {
     $.ajax({
       url: url,

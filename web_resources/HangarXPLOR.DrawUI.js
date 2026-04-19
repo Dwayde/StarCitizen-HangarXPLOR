@@ -149,6 +149,10 @@ HangarXPLOR.DrawUI = function()
     $('<span>', { class: 'left-section'}),
     $('<span>', { class: 'right-section'})
   ));*/
+  
+  window.addEventListener("load", (event) => {
+    document.getElementsByClassName('pledge-log js-pledge-log')[0].addEventListener('click', addLoadLogElement);
+});
 
 
 

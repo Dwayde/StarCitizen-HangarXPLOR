@@ -74,7 +74,7 @@ HangarXPLOR.RenderBuyback = function() {
     bbbuffer = [$empty[0]];
   }
 
-  HangarXPLOR._buybackTotalRecords = buffer.length;
+  HangarXPLOR._buybackTotalRecords = bbbuffer.length;
 
   var maxPages = Math.ceil(HangarXPLOR._buybackTotalRecords / HangarXPLOR._buybackPageCount);
   if (HangarXPLOR._buybackPageNo > maxPages) HangarXPLOR._buybackPageNo = Math.max(1, maxPages);

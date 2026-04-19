@@ -12,10 +12,6 @@ const addLoadLogElement = async () => {
   //document.getElementsByClassName('pledge-log js-pledge-log')[0].removeEventListener('click', addLoadLogElement);
 };
 
-window.addEventListener("load", (event) => {
-    document.getElementsByClassName('pledge-log js-pledge-log')[0].addEventListener('click', addLoadLogElement);
-});
-
 
 
 async function loadAllLogs() {

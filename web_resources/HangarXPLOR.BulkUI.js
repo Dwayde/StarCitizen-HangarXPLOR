@@ -108,8 +108,7 @@ HangarXPLOR.UpdateStatus = function(pageNo)
   if (HangarXPLOR._pageType === 'buyback' && HangarXPLOR.$buybackBulkUI) {
     HangarXPLOR.$buybackBulkUI.$loading.empty();
     HangarXPLOR.$buybackBulkUI.$loading.append(
-      $('<span>', { class: 'amount', text: 'Loading' }),
-      $('<span>', { class: 'label', text: pageNo ? 'Page ' + pageNo : 'Please Wait' }),
+      $('<span>', { class: 'buybackloadingtext', text: 'Loading ' + ( pageNo ? '' + pageNo + ' pages...' : 'Please Wait...') }),
       $('<br>')
     );
     return;

@@ -20,7 +20,7 @@ HangarXPLOR.BuybackBulkUI = function() {
   HangarXPLOR.$buybackBulkUI.$inner = $('<div>', { class: 'inner content-block1 loading' });
   HangarXPLOR.$buybackBulkUI.$value = $('<div>', { class: 'value' });
   HangarXPLOR.$buybackBulkUI.$downloads = $('<div>', { class: 'actions' });
-  HangarXPLOR.$buybackBulkUI.$loading = $('<div>', { class: 'status value' });
+  HangarXPLOR.$buybackBulkUI.$loading = $('<div>', { class: 'status value buybackloading' });
 
   $billing.append(HangarXPLOR.$buybackBulkUI);
   HangarXPLOR.$buybackBulkUI.append(HangarXPLOR.$buybackBulkUI.$inner);
@@ -58,7 +58,14 @@ HangarXPLOR.BuybackBulkUI = function() {
 
   $(document).on('scroll', positionUI);
   positionUI();
+
+  HangarXPLOR.$buybackBulkUI.$inner.removeClass('loading').addClass('still-loading');;
 };
+
+HangarXPLOR.MarkBBLoadingComplete = function() {
+  HangarXPLOR.$buybackBulkUI.$loading.empty();
+  HangarXPLOR.$buybackBulkUI.$inner.removeClass('still-loading');
+}
 
 /**
  * Refreshes the buyback summary panel with current counts

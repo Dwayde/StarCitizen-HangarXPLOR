@@ -1,41 +1,55 @@
-var delaytime = 10001; //10 second
-
-
 var HangarXPLOR = HangarXPLOR || {};
 
-/**
- * Loads a page of buyback pledges via AJAX
- * @param {number} pageNo - The page number to load (1-indexed)
- */
-HangarXPLOR.LoadBuybackPage = function(pageNo) {
+
+HangarXPLOR._BBthrottleAfterPage = 50;   // start throttling after this page number
+HangarXPLOR._BBthrottleDelay     = 500;  // ms to wait between pages once throttling kicks in
+HangarXPLOR._BBretryDelay        = 5000; // ms for first retry after a 429; multiplied by attempt number
+HangarXPLOR._BBmaxRetries        = 5;
+
+
+HangarXPLOR.LoadBuybackPage = function(pageNo, retryCount) {
   pageNo = pageNo || 1;
 
   HangarXPLOR.Log('Loading buyback page', pageNo);
   HangarXPLOR.UpdateStatus(pageNo);
 
-  $.ajax({
-    url: '/account/buy-back-pledges?page=' + pageNo + '&pagesize=50',
-    method: 'GET',
-    dataType: 'html',
-    success: function(response) {
-      HangarXPLOR.ProcessBuybackPage($(response), pageNo);
-    },
-    error: function(xhr, status, error) {
-      HangarXPLOR.Log('Error loading buyback page', pageNo, status, error);
+  var url = '/account/buy-back-pledges?page=' + pageNo + '&pagesize=50';
 
-      console.log('Error loading buyback page ' + pageNo + ' of your hangar, probably anti-spam, if you have large hangar!');
+  if (pageNo == 1 && document.location.search == '?page=1')
+    return HangarXPLOR.ProcessBuybackPage(document.body, pageNo);
 
-      console.log('No worries we will try again in ' + ((delaytime - 1)/1000) + ' seconds!');
-      document.getElementById("loading").innerHTML += "<br>Anti-spam, retrying...";
-      
-      // Auto try again
-      setTimeout(function() {
-        HangarXPLOR.LoadBuybackPage(pageNo);
-      }, delaytime);
-      
-      // Still try to render what we have
-      //HangarXPLOR.SaveBuybackCache();
-      //HangarXPLOR.DrawBuybackUI();
-    }
-  });
-};
+    HangarXPLOR.Log('Loading', url);
+
+    var doLoad = function() {
+    $.ajax({
+      url: url,
+      method: 'GET',
+      dataType: 'html',
+      success: function(data) {
+        HangarXPLOR.ProcessBuybackPage(data, pageNo);
+      },
+      error: function(xhr) {
+        if (xhr.status === 429 && retryCount < HangarXPLOR._BBmaxRetries) {
+          var delay = HangarXPLOR._BBretryDelay * (retryCount + 1);
+          HangarXPLOR.Log('Rate limited on page ' + pageNo + ', retrying in ' + (delay / 1000) + 's (attempt ' + (retryCount + 1) + '/' + HangarXPLOR._maxRetries + ')');
+          HangarXPLOR.UpdateStatus(pageNo, 'rate-limited', retryCount + 1, delay / 1000);
+          console.log('Error loading page ' + pageNo + ' of your buyback, probably anti-spam, if you have large hangar!');
+          // Auto try again
+          console.log('No worries we will try again in ' + ((delay - 1)/1000) + ' seconds!');
+          document.getElementById("loadingstatus").innerHTML += "<br>Anti-spam, retrying...";
+          setTimeout(function() { HangarXPLOR.LoadBuybackPage(pageNo, retryCount + 1); }, delay);
+        } else {
+          HangarXPLOR.Log('Error loading page ' + pageNo + ' of your hangar - please contact klnpotap@gmail.com for further support') 
+          HangarXPLOR.UpdateStatus(pageNo, 'error');
+        }
+      }
+    });
+  };
+
+  if (pageNo > HangarXPLOR._BBthrottleAfterPage) {
+    setTimeout(doLoad, HangarXPLOR._BBthrottleDelay);
+  } else {
+    doLoad();
+  }
+
+}

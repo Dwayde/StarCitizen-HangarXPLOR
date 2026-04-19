@@ -377,7 +377,15 @@
 }
 
 #loadingstatus {
-    color: #bdced4;
+    color: #4ee0ff;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-family: 'Electrolize';
+    margin-bottom: 5px;
+}
+
+.buybackloading {
+    color: #4ee0ff;
     font-size: 14px;
     text-transform: uppercase;
     font-family: 'Electrolize';

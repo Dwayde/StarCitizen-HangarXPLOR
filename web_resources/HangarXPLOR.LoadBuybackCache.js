@@ -24,6 +24,7 @@ HangarXPLOR.LoadBuybackCache = function(callback) {
       }
 
       HangarXPLOR.DrawBuybackUI();
+      HangarXPLOR.MarkBBLoadingComplete();
       return;
     }
 
