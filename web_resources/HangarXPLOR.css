@@ -391,3 +391,17 @@
     font-family: 'Electrolize';
     margin-bottom: 5px;
 }
+
+.upgradehead {
+  padding-bottom: 10px;
+}
+
+.upgradepadder {
+  padding: 0 28px 15px;
+}
+
+.upgradeviewport {
+    overflow: hidden;
+    position: relative;
+    height: inherit;
+}

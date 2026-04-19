@@ -486,14 +486,14 @@ function updateApplyUpgradesUI() {
     <span onClick="closeupgradechain();" class="close trans-03s .trans-opacity"></span>
     <div id="upgrade" class="inner-content" style="">
   <h2><span class="icon"></span>APPLY CHAIN OF UPGRADEs</h2>
-  <div class="padder">
+  <div class="upgradepadder">
     <div class="separator"></div>
     <div class="clearfix">
       <form id="upgradechaain-pledge" action="" method="POST" class="legacy-form">
         <div class="upgradechain-errors error-message js-error-message"></div>
         <div class="upgradechain-msg success-message js-success-message"></div>
 
-        <p class="head">You are about to create upgrade for your pledge. This will <span class="important">delete the upgrade from your account</span> and apply the upgrade to the selected pledge by replacing ship.<br><br>
+        <p class="upgradehead">You are about to create upgrade for your pledge. This will <span class="important">delete the upgrade from your account</span> and apply the upgrade to the selected pledge by replacing ship.<br><br>
         You can <span class="important">apply upgrades one after another to same pledge</span> or/and complete multiple upgrade chains one after another <span class="important">without requirment to reload page</span> each time.</p>
        
         <p class="warning">WARNING! This action is PERMANENT and cannot be undone.</p>
@@ -517,16 +517,8 @@ function updateApplyUpgradesUI() {
           <input onchange="upgradechain_search_ship_func();" id="upgradechain_search_ship" class="js-custom-search upgradechain-custom-search" placeholder="Search ships"/>
         </div>
         <p id="pledge_noresults" style="display: none;">No results found</p>
-        <div class="scrollable fancy" style="height: 150px;">
-          <div class="scrollbar" style="height: 150px;">
-            <div class="track" style="height: 150px;">
-              <div class="thumb" style="top: 0px; height: 150px;">
-                <div class="end"></div>
-              </div>
-            </div>
-          </div>
-          <div class="viewport" style="overflow-y: visible; height: 150px;">
-            <div class="content" style="top: 0px;">
+          <div class="upgradeviewport" style="overflow-y: visible; height: 175px;">
+            <div class="upgradecontent" style="top: 0px;">
               <div class="upgrade-pledge-rows">`;
 
   
@@ -559,12 +551,11 @@ function updateApplyUpgradesUI() {
 
 
   upgradechainhtml += `   
-              </div>
             </div>
-          </div>
+        </div>
         </div>
 
-        <span class="submit-wrapper js-next left disabled">
+        <span style="margin-top: 20px;" class="submit-wrapper js-next left disabled">
           <span class="submit-hover trans-02s trans-opacity"></span>
           <input style="display: none;" id="upgradechainnext" onClick="upgradechainnextbut();" type="button" value="NEXT" class="trans-02s trans-color trans-background">
         </span>
@@ -578,16 +569,8 @@ function updateApplyUpgradesUI() {
         </div>
         <p id="showingall" class="warning" style="display: none;">ATTENTION! Showing all upgrades in hangar, because we can't find anything for this ship</p>
         <p id="ccu_noresults" style="display: none;">No results found</p>
-        <div class="scrollable fancy" style="height: 150px;">
-          <div class="scrollbar" style="height: 150px;">
-            <div class="track" style="height: 150px;">
-              <div class="thumb" style="top: 0px; height: 150px;">
-                <div class="end"></div>
-              </div>
-            </div>
-          </div>
-          <div class="viewport" style="overflow-y: visible; height: 150px;">
-            <div class="content" style="top: 0px;">
+          <div class="upgradeviewport" style="overflow-y: visible; height: 150px;">
+            <div class="upgradecontent" style="top: 0px;">
               <div class="upgrade-ccu-rows">`;
 
   for (var i = 0, j = HangarXPLOR._inventory.length; i < j; i++) {
@@ -622,9 +605,8 @@ function updateApplyUpgradesUI() {
 
  upgradechainhtml += `
 
-               </div>
             </div>
-          </div>
+        </div>
         </div>
 
         <p>Type in your password to confirm:</p>

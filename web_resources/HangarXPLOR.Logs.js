@@ -9,6 +9,9 @@ const addLoadLogElement = async () => {
   document.getElementById('loadLogs').addEventListener('click', loadAllLogs);
 
   document.getElementById('loadLogs').style.display = "";
+
+  document.getElementById('pledge-log').style.height = "auto";
+  document.getElementsByClassName('pledge-log')[0].style.height = "auto";
   //document.getElementsByClassName('pledge-log js-pledge-log')[0].removeEventListener('click', addLoadLogElement);
 };
 
@@ -31,6 +34,7 @@ async function loadAllLogs() {
   //document.getElementById('pagestoloadtxt2').style.display = "none";
   //document.getElementById('pagestoloadtxt3').style.display = "none";
   //document.getElementById('pagestoloadfrom').style.display = "none";
+
 
   document.getElementById("loadLogs").style.display = "none";
   document.getElementById('pagestoloadtxt').style.display = "none";
@@ -132,6 +136,11 @@ async function loadAllLogs() {
   document.getElementById('pagestoloadfrom').style.display = "";
   document.getElementById('pagestoloadto').style.display = "";
 
+  document.getElementById('pledge-log').style.height = "auto";
+  document.getElementsByClassName('pledge-log')[0].style.height = "auto";
+
+
+
 }
 
 async function getLogPage(page) {
@@ -204,7 +213,7 @@ function removeTags(str) {
 
 
 addEventListener("wheel", (event) => { 
-  if(document.getElementsByClassName('scrollbar').length > 1) {
-    document.getElementsByClassName('scrollbar')[1].remove();
+  if(document.querySelectorAll('#pledge-log .scrollable .scrollbar').length > 1) {
+    document.querySelectorAll('#pledge-log .scrollable .scrollbar')[1].remove();
   }
  });

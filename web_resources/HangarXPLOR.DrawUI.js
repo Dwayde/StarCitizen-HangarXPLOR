@@ -128,7 +128,7 @@ HangarXPLOR.DrawUI = function()
       }
   });
 
-  $('body').append($('<div>', { class: 'upgradechainblock s-overlay overlay modals apply-upgrade lightbox js-lightbox', id: 'upgradechainblock' } ) );
+  $('body').append($('<div>', { class: 'upgradechainblock js-overlay overlay modals apply-upgrade lightbox js-lightbox', id: 'upgradechainblock' } ) );
 
   updateApplyUpgradesUI();
 
