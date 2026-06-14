@@ -80,6 +80,13 @@ HangarXPLOR.ParseBuybackPledge = function() {
   else if (this.filters.is_subscriber || this.filters.is_flair) HangarXPLOR._buybackCounts.subscriber++;
   else HangarXPLOR._buybackCounts.other++;
 
+  console.log(this);
+
+  if(this.classList.contains('no-buy-backs')) {
+    HangarXPLOR._buybackCounts.total--;
+    HangarXPLOR._buybackCounts.other--;
+  }
+
   // Add to buyback inventory
   HangarXPLOR._buybackInventory.push(this);
 };

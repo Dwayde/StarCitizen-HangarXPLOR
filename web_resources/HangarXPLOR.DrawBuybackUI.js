@@ -93,6 +93,27 @@ HangarXPLOR.DrawBuybackUI = function() {
     HangarXPLOR.RenderBuyback();
   }));
 
+  // Reload buyback
+  $('<span>', { class: 'bbclearcachebutton shadow-button trans-02s trans-color clearcaches js-clear-cache', id: 'clearCache'}).append(
+    $('<span>', { class: 'icon trans-02s' }),
+    $('<span>', { class: 'label js-label trans-02s'}).text("Reload buyback"),
+    $('<span>', { class: 'left-section'}),
+    $('<span>', { class: 'right-section'})
+  ).insertAfter('.buy-back-pledges').parent('.inner-content');
+  
+  document.getElementById('clearCache').addEventListener("click", function() {
+    if(confirm('Do you want to reload buyback?') == true) {
+      chrome.storage.sync.get(null, function(settings) {
+          settings._cacheSalt  = btoa(Math.random());
+          chrome.storage.sync.set(settings, () => {
+            //chrome.tabs.reload();
+            window.close();
+          });
+      });
+      window.location.reload();
+      }
+  });
+
   // Search box
   var $searchWrapper = $('<div>', { class: 'js-buyback-search-wrapper' });
   $searchWrapper.append(HangarXPLOR.BuybackSearchBox());

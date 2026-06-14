@@ -140,77 +140,85 @@ HangarXPLOR.ParsePledge = function()
 
   // New Logic to parse content by contains
 
-  var pledgeContains = $('.row .basic-infos .wrapper-col .items-col', this)[0].textContent || '';
+  if($('.row .basic-infos .wrapper-col .items-col', this) !== undefined && $('.row .basic-infos .wrapper-col .items-col', this)[0] !== undefined) {
 
-  if (pledgeContains.length > 0) {
-    
-    pledgeContains = pledgeContains.replace("Contains:", "")
-                                   .trim();
+      var pledgeContains = $('.row .basic-infos .wrapper-col .items-col', this)[0].textContent || '';
+      
 
-    pledgeContains = pledgeContains.toLowerCase();
 
-    HangarXPLOR.PreProcess.apply(this, [ pledgeContains ]);
-    HangarXPLOR.ParseShip.apply(this, [ pledgeContains ]);
-    HangarXPLOR.ParseComponent.apply(this, [ pledgeContains ]);
-    HangarXPLOR.ParseEquipment.apply(this, [ pledgeContains ]);
-    HangarXPLOR.ParseSkin.apply(this, [ pledgeContains ]);
-    HangarXPLOR.ParseDecoration.apply(this, [ pledgeContains ]);
-    HangarXPLOR.ParseUpgrade.apply(this, [ pledgeContains ]);
-    HangarXPLOR.ParseReward.apply(this, [ pledgeContains ]);
-    HangarXPLOR.ParseCoupon.apply(this, [ pledgeContains ]);
-    HangarXPLOR.ParseHangar.apply(this, [ pledgeContains ]);
 
-    var oldType = this.pledge_type;
+    if (pledgeContains.length > 0) {
+      
+      pledgeContains = pledgeContains.replace("Contains:", "")
+                                    .trim();
 
-    if (this.filters.is_ship)             this.pledge_type = 'ship';
-    else if (this.filters.has_ship)       this.pledge_type = 'combo';
-    else if (this.filters.has_component)  this.pledge_type = 'component';
-    else if (this.filters.has_equipment)  this.pledge_type = 'equipment';
-    else if (this.filters.has_skin)       this.pledge_type = 'paint';
-    else if (this.filters.has_decoration) this.pledge_type = 'decoration';
-    else if (this.filters.is_upgrade)     this.pledge_type = 'upgrade';
-    else if (this.filters.is_coupon)      this.pledge_type = 'coupon';
+      pledgeContains = pledgeContains.toLowerCase();
 
-    if (!this.filters.has_ship &&
-      (this.filters.has_skin ? 1 : 0) +
-      (this.filters.has_equipment ? 1 : 0) +
-      (this.filters.has_component ? 1 : 0) +
-      (this.filters.has_decoration ? 1 : 0) > 1) this.pledge_type = 'loot';
+      HangarXPLOR.PreProcess.apply(this, [ pledgeContains ]);
+      HangarXPLOR.ParseShip.apply(this, [ pledgeContains ]);
+      HangarXPLOR.ParseComponent.apply(this, [ pledgeContains ]);
+      HangarXPLOR.ParseEquipment.apply(this, [ pledgeContains ]);
+      HangarXPLOR.ParseSkin.apply(this, [ pledgeContains ]);
+      HangarXPLOR.ParseDecoration.apply(this, [ pledgeContains ]);
+      HangarXPLOR.ParseUpgrade.apply(this, [ pledgeContains ]);
+      HangarXPLOR.ParseReward.apply(this, [ pledgeContains ]);
+      HangarXPLOR.ParseCoupon.apply(this, [ pledgeContains ]);
+      HangarXPLOR.ParseHangar.apply(this, [ pledgeContains ]);
 
-    if(pledgeContains.includes('coin')) {
-      this.pledge_type = 'loot';
+      var oldType = this.pledge_type;
+
+      if (this.filters.is_ship)             this.pledge_type = 'ship';
+      else if (this.filters.has_ship)       this.pledge_type = 'combo';
+      else if (this.filters.has_component)  this.pledge_type = 'component';
+      else if (this.filters.has_equipment)  this.pledge_type = 'equipment';
+      else if (this.filters.has_skin)       this.pledge_type = 'paint';
+      else if (this.filters.has_decoration) this.pledge_type = 'decoration';
+      else if (this.filters.is_upgrade)     this.pledge_type = 'upgrade';
+      else if (this.filters.is_coupon)      this.pledge_type = 'coupon';
+
+      if (!this.filters.has_ship &&
+        (this.filters.has_skin ? 1 : 0) +
+        (this.filters.has_equipment ? 1 : 0) +
+        (this.filters.has_component ? 1 : 0) +
+        (this.filters.has_decoration ? 1 : 0) > 1) this.pledge_type = 'loot';
+
+      if(pledgeContains.includes('coin')) {
+        this.pledge_type = 'loot';
+      }
+
+
+      if(oldType != this.pledge_type) {
+
+        // Replace old type in title
+        this.displayName = this.displayName.replace("pledge - ", "")
+                                          .replace("loot - ", "")
+                                          .replace("ship - ", "")
+                                          .replace("component - ", "")
+                                          .replace("equipment - ", "")
+                                          .replace("decoration - ", "")
+                                          .replace("upgrade - ", "")
+                                          .replace("coupon - ", "")
+                                          .replace("skin - ", "")
+                                          .replace("paint - ", "")
+                                          .replace(" Upgrade", "");
+
+        // Update title
+        this.displayName = this.pledge_type + ' - ' + this.displayName + ' (' + this.pledge_id + ')';
+
+        this.sortName = this.displayName;
+        h3Text.textContent = this.displayName;
+
+      }
+
+
+
+      
+
+    } else {
+          HangarXPLOR.Log('Warning: Error parsing contains', this.innerHTML);
     }
-
-
-    if(oldType != this.pledge_type) {
-
-      // Replace old type in title
-      this.displayName = this.displayName.replace("pledge - ", "")
-                                         .replace("loot - ", "")
-                                         .replace("ship - ", "")
-                                         .replace("component - ", "")
-                                         .replace("equipment - ", "")
-                                         .replace("decoration - ", "")
-                                         .replace("upgrade - ", "")
-                                         .replace("coupon - ", "")
-                                         .replace("skin - ", "")
-                                         .replace("paint - ", "")
-                                         .replace(" Upgrade", "");
-
-      // Update title
-      this.displayName = this.pledge_type + ' - ' + this.displayName + ' (' + this.pledge_id + ')';
-
-      this.sortName = this.displayName;
-      h3Text.textContent = this.displayName;
-
-    }
-
-
-
-    
-
   } else {
-        HangarXPLOR.Log('Warning: Error parsing contains', this.innerHTML);
+    HangarXPLOR.Log('Warning: Hangar is empty', this.innerHTML);
   }
 
 

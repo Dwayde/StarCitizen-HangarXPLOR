@@ -144,7 +144,12 @@ HangarXPLOR.RefreshBulkUI = function()
   HangarXPLOR._selectedMelt = 0.00;
   HangarXPLOR._totalMelt = 0.00;
   HangarXPLOR._selected = $.grep(HangarXPLOR._inventory, function(item) {
-    HangarXPLOR._totalMelt += item.melt_value;
+
+  // Empty hangar
+  if(item.filters === undefined) { return true }
+
+  HangarXPLOR._totalMelt += item.melt_value;
+
     if (item.filters.is_selected) {
       HangarXPLOR._selectedMelt += item.melt_value;
       if (item.filters.is_meltable) HangarXPLOR._meltable.push(item);

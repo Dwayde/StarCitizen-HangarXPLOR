@@ -5,6 +5,8 @@ HangarXPLOR._callbacks = HangarXPLOR._callbacks || {};
 
 HangarXPLOR._callbacks.UpgradeChain = function(e) {
     e.preventDefault();
+
+    updateApplyUpgradesUI();
     document.getElementById("upgradechainblock").style.display = "block";
 
 }
@@ -483,7 +485,7 @@ function updateApplyUpgradesUI() {
     <div class="r-corner"></div>
   </div>
   <div class="modal-inner">
-    <span onClick="closeupgradechain();" class="close trans-03s .trans-opacity"></span>
+    <span onClick="closeupgradechain();" style="cursor: pointer;" class="upgradeclose close trans-03s .trans-opacity"></span>
     <div id="upgrade" class="inner-content" style="">
   <h2><span class="icon"></span>APPLY CHAIN OF UPGRADEs</h2>
   <div class="upgradepadder">
@@ -521,33 +523,35 @@ function updateApplyUpgradesUI() {
             <div class="upgradecontent" style="top: 0px;">
               <div class="upgrade-pledge-rows">`;
 
-  
-  var items_buffer = HangarXPLOR._inventory;
+    var items_buffer = HangarXPLOR._inventory;
 
-  for (var i = 0, j = HangarXPLOR._inventory.length; i < j; i++) { 
-    if(HangarXPLOR._inventory[i].filters.is_ship) {
-      var id = HangarXPLOR._inventory[i].pledge_id;
-      var name = HangarXPLOR._inventory[i].displayName;
-      name = replaceStrangeTxts(name);
-      let name_ar = name.split('[');
-      if(name_ar.length > 1) {
-        name = name_ar[0].trim();
-      }
-      var fullname = HangarXPLOR._inventory[i].pledge_name;
-      upgradechainhtml += `
-      <div id="upgrade-row-` + id + `" class="upgradechain-pledge-row row">
-        <label onClick="upgradechain_selectpledge(` + id + `);" for="upgrade-radio-` + id + `">
-          <input id="upgradechain_ship_` + id + `" type=hidden value="` + name + `"/>
-          <input id="upgrade-radio-`+ id + `" name="pledge_id" type="radio" value="` + id + `">
-          <span id="upgradechain_ship_span_` + id + `">` + fullname;
-        if(!fullname.includes(name)) {
-          upgradechainhtml += " Ship: " + name;
+    if(HangarXPLOR._inventory[0].filters !== undefined) {
+
+        for (var i = 0, j = HangarXPLOR._inventory.length; i < j; i++) { 
+            if(HangarXPLOR._inventory[i].filters.is_ship) {
+            var id = HangarXPLOR._inventory[i].pledge_id;
+            var name = HangarXPLOR._inventory[i].displayName;
+            name = replaceStrangeTxts(name);
+            let name_ar = name.split('[');
+            if(name_ar.length > 1) {
+                name = name_ar[0].trim();
+            }
+            var fullname = HangarXPLOR._inventory[i].pledge_name;
+            upgradechainhtml += `
+            <div id="upgrade-row-` + id + `" class="upgradechain-pledge-row row">
+                <label onClick="upgradechain_selectpledge(` + id + `);" for="upgrade-radio-` + id + `">
+                <input id="upgradechain_ship_` + id + `" type=hidden value="` + name + `"/>
+                <input id="upgrade-radio-`+ id + `" name="pledge_id" type="radio" value="` + id + `">
+                <span id="upgradechain_ship_span_` + id + `">` + fullname;
+                if(!fullname.includes(name)) {
+                upgradechainhtml += " Ship: " + name;
+                }
+                upgradechainhtml += " (#" + id + ")" + `</span>
+                </label>
+            </div>`;
+            }
         }
-        upgradechainhtml += " (#" + id + ")" + `</span>
-        </label>
-      </div>`;
     }
-  }
 
 
   upgradechainhtml += `   
@@ -572,6 +576,8 @@ function updateApplyUpgradesUI() {
           <div class="upgradeviewport" style="overflow-y: visible; height: 150px;">
             <div class="upgradecontent" style="top: 0px;">
               <div class="upgrade-ccu-rows">`;
+
+if(HangarXPLOR._inventory[0].filters !== undefined) {
 
   for (var i = 0, j = HangarXPLOR._inventory.length; i < j; i++) {
 
@@ -599,6 +605,7 @@ function updateApplyUpgradesUI() {
     }
 
   }
+}
 
 
 
