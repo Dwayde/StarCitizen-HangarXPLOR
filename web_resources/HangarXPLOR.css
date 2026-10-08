@@ -335,7 +335,7 @@
 @media only screen and (min-width: 1024px) {
   .shadow-button.upgrade {
     position: absolute;
-    top: 15px;
+    top: 5px;
     right: 6%;
   }
 
